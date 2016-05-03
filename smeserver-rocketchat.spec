@@ -55,22 +55,6 @@ rm -rf %{name}-%{version}
 %preun
 %post
 
-scl enable nodejs010 bash
-npm -g install inherits
-npm -g install n
-n 0.10.40
-npm -g install forever
-exit
-
-
-#/sbin/e-smith/expand-template /etc/rc.d/init.d/masq
-#/sbin/e-smith/expand-template /etc/inittab
-#/sbin/init q
-
-
 echo "https://wiki.contribs.org/Rocket_Chat"
 
 %postun
-#/sbin/e-smith/expand-template /etc/rc.d/init.d/masq
-#/sbin/e-smith/expand-template /etc/inittab
-#/sbin/init q

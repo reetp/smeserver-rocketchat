@@ -9,6 +9,11 @@ use esmith::Build::CreateLinks qw(:all);
 
 foreach (qw(
        /etc/rc.d/init.d/rocketchat
+       /etc/profile.d/scls-rh-mongodb26.sh
+       /etc/profile.d/scls-rh-python34.sh
+       /etc/profile.d/scls-rh-java-common.sh
+       /etc/profile.d/scls-nodejs010.sh
+
     ))
 
 {
@@ -17,7 +22,7 @@ foreach (qw(
     console-save
     bootstrap-console-save
     remoteaccess-update
-#    ));
+    ));
 }
 
 #--------------------------------------------------
