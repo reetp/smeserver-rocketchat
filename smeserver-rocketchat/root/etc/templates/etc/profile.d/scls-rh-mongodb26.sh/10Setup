@@ -1,0 +1,24 @@
+{
+    use strict;
+    use warnings;
+    use esmith::ConfigDB;
+
+    my $configDB = esmith::ConfigDB->open_ro or die("can't open Config DB");
+
+    my $rocketchatStatus = $configDB->get_prop( 'rocketchat', 'status' ) || 'disabled';
+
+    if ( $rocketchatStatus ne 'disabled' ) {
+
+    $OUT .= <<'_EOF';
+
+    #!/bin/sh
+    source /opt/rh/rh-mongodb26/enable
+    export X_SCLS="`scl enable rh-mongodb26 'echo $X_SCLS'`"
+    export ROOT_URL=http://localhost:3000/
+    export PORT=3000
+    export MONGO_URL=mongodb://localhost:27017/rocketchat
+
+    _EOF
+    }
+}
+

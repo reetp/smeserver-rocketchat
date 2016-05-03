@@ -1,0 +1,20 @@
+{
+    use strict;
+    use warnings;
+    use esmith::ConfigDB;
+
+    my $configDB = esmith::ConfigDB->open_ro or die("can't open Config DB");
+
+    my $rocketchatStatus = $configDB->get_prop( 'rocketchat', 'status' ) || 'disabled';
+
+    if ( $rocketchatStatus ne 'disabled' ) {
+
+    $OUT .= <<'_EOF';
+
+    #!/bin/sh
+    source /opt/rh/rh-java-common/enable
+    export X_SCLS="`scl enable rh-java-common 'echo $X_SCLS'`"
+    _EOF
+    }
+}
+

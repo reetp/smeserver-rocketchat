@@ -1,0 +1,190 @@
+#!/bin/bash
+
+#
+#	/etc/rc.d/init.d/rocketchat
+#
+#	rocketchat - Provisioned using forever-service
+#
+# chkconfig: 2345 90 10 
+# description: forever-service startup script for node script based service rocketchat, uses forever to start the service
+#
+#	CLI node /usr/local/bin/forever-service install -s main.js -e ROOT_URL=https://test.reetspetit.info/ MONGO_URL=mongodb://localhost:27017/rocketchat PORT=3000 MAIL_URL=smtp://reetspetit.info:25 -p /opt/rh/nodejs010/root/usr/lib/node_modules/forever/bin rocketchat
+#	Working Directory /opt/Rocket.Chat
+
+#Setup Environment variables (if any)
+
+
+export ROOT_URL=https://test.reetspetit.info/
+export MONGO_URL=mongodb://localhost:27017/rocketchat
+export PORT=3000
+export MAIL_URL=smtp://reetspetit.info:25
+source /etc/profile.d/scls-nodejs010.sh
+
+# Check if any of $pid (could be plural) are running
+LOGFILE="/var/log/rocketchat.log"
+LOCKFILE="/var/lock/subsys/rocketchat"
+
+# introduce some gaps between restarts and throttle continous restarts
+MIN_UPTIME="5000"
+SPIN_SLEEP_TIME="2000"
+
+# kill signal: Since default needs to be SIGTERM, it is important that services gracefully shutdown,
+# specially if they are doing transactions or other work which should not be interuppted in between
+# for exceptional situation where you dont care about abrupt shutdown, SIGKILL should be used
+KILL_SIGNAL="SIGTERM"
+
+# Wait time afer with SIGKILL will be sent to the process, in case SIGTERM is not fully finished
+# This is required since when we use SIGTERM, some times if there is problem in code, it might take lot of time for process to exit
+# or process may never exit, in such siutation we have to forcebly kill it so that shutdown or service restart can be done appropriately
+# this wait time is in millisecond
+KILLWAITTIME=5000
+
+killtree() {
+    local _pid=$1
+    local _sig=${2:--TERM}
+    kill -stop ${_pid} # needed to stop quickly forking parent from producing children between child killing and parent killing
+    for _child in $(ps -o pid --no-headers --ppid ${_pid}); do
+        killtree ${_child} ${_sig}
+    done
+    kill -${_sig} ${_pid}
+}
+
+checkpidexists() {
+	[ -d "/proc/$1" ] && return 0
+	return 1
+}
+
+
+
+start() {
+	#this is to ensure forever is able to find out the correct root every time
+	export FOREVER_ROOT=/root/.forever
+    
+	STATUS=$(/opt/rh/nodejs010/root/usr/lib/node_modules/forever/bin/forever --plain list | sed 's/data:\(\s*\[[0-9]*\]\s*\(rocketchat\)\s.*\)/\2-status:\1/;tx;d;:x')
+	
+	if ! [ -z "$STATUS" ]; then
+		echo "Service rocketchat already running"
+		return 0
+	fi
+
+	echo  "Starting rocketchat"
+
+
+
+	
+	# move to the directory from where the inital forever script was launched so that even if it is relative it works as expected
+	cd /opt/Rocket.Chat
+
+	
+
+	/opt/rh/nodejs010/root/usr/lib/node_modules/forever/bin/forever \
+	-a \
+	-l $LOGFILE \
+	--minUptime $MIN_UPTIME \
+	--spinSleepTime $SPIN_SLEEP_TIME \
+	--killSignal $KILL_SIGNAL \
+	 \
+	--uid rocketchat \
+	start main.js  2>&1 >/dev/null
+	
+	RETVAL=$?
+
+ 	[ $RETVAL = 0 ] && touch $LOCKFILE
+ 	return $RETVAL
+}	
+
+stop() {
+	#this is to ensure forever is able to find out the correct root every time
+	export FOREVER_ROOT=/root/.forever
+
+	echo -n "Shutting down rocketchat: "
+
+    
+	STATUS=$(/opt/rh/nodejs010/root/usr/lib/node_modules/forever/bin/forever --plain list | sed 's/data:\(\s*\[[0-9]*\]\s*\(rocketchat\)\s.*\)/\2-status:\1/;tx;d;:x')
+	
+	if [ -z "$STATUS" ]; then
+		echo "Not running"
+		return 0
+	fi
+
+	# PID=$(<$PIDFILE) - Changed to detection based on actual PID from forever, sicne due to watchDirectory pid could dynamically change
+    
+	PID=$(/opt/rh/nodejs010/root/usr/lib/node_modules/forever/bin/forever --plain list | sed -n -e '/data:\s*\[[0-9]*\]\s\(rocketchat\)\s/p' | awk '{print $7}')
+	
+
+	if [ -z "$PID" ]; then
+		echo "Could not get pid"
+		return 0
+	fi
+
+	#run in background, since recent changes in forever, now blocks stop call with SIGTERM is finished
+	#but we want to wait till some time and forcibly kill after elapsed time
+	#without background script, we could be waiting forever
+	
+	/opt/rh/nodejs010/root/usr/lib/node_modules/forever/bin/forever stop rocketchat 2>&1 >/dev/null &
+	
+
+	CURRENTWAITTIME=$KILLWAITTIME
+	# wait for some time before forcefully killing the process
+	while [ $CURRENTWAITTIME -gt 0 ]; do
+		#check if the process is still running
+		checkpidexists $PID
+		if [ $? -ne 0 ]; then
+			# if not running we can break, since no more wait is needed, service is stopped
+			echo "Successful"
+			break
+		fi
+		
+	 	usleep 500000
+	 	let CURRENTWAITTIME-=500
+	 	
+	done
+	checkpidexists $PID
+	if [  $? -eq 0  ]; then
+		killtree $PID 9
+		echo 'Forced shutdown'
+	fi
+
+	rm -f $PIDFILE 2>&1 >/dev/null
+	rm -f $LOCKFILE 2>&1 >/dev/null
+	return 0
+
+}
+
+status() {
+	#this is to ensure forever is able to find out the correct root every time
+	export FOREVER_ROOT=/root/.forever
+
+    
+	STATUS=$(/opt/rh/nodejs010/root/usr/lib/node_modules/forever/bin/forever --plain list | sed 's/data:\(\s*\[[0-9]*\]\s*\(rocketchat\)\s.*\)/\2-status:\1/;tx;d;:x')
+	
+	if [ -z "$STATUS" ]; then
+		echo "rocketchat is not running"
+		RETVAL=3
+	else		
+		echo $STATUS
+		RETVAL=0
+	fi
+	return $RETVAL
+}
+
+case "$1" in
+    start)
+	start
+	;;
+    stop)
+	stop
+	;;
+    status)
+	status
+	;;
+    restart)
+    	stop
+	start
+	;;
+    *)
+	echo "Usage: <servicename> {start|stop|status|restart}"
+	exit 1
+	;;
+esac
+exit $?
