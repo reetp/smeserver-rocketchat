@@ -1,5 +1,28 @@
+{
+    use strict;
+    use warnings;
+    use esmith::ConfigDB;
 
-export ROOT_URL=https://chat.server.local/
-export MONGO_URL=mongodb://localhost:27017/rocketchat
-export PORT=3000
-export MAIL_URL=smtp://server.local:25
+    my $configDB = esmith::ConfigDB->open_ro or die("can't open Config DB");
+
+    my $rocketchatStatus = $configDB->get_prop( 'rocketchat', 'status' ) || 'disabled';
+
+    if ( $rocketchatStatus ne 'disabled' ) {
+
+
+    my $mongoURL = $configDB->get_prop( 'rh-mongodb26-mongod', 'mongoURL' ) || 'localhost';
+    my $mongoTCPport = $configDB->get_prop( 'rh-mongodb26-mongod', 'TCPPortport' ) || '27017';
+
+    my $rootURL = $configDB->get_prop( 'rocketchat', 'rootURL' ) || 'chat.local.server';
+    my $rocketchatTCPport = $configDB->get_prop( 'rocketchat', 'TCPport' ) || '3000';
+    my $mailURL = $configDB->get_prop( 'rocketchat', 'mailURL' ) || 'server.local';
+    my $mailPort = $configDB->get_prop( 'rocketchat', 'mailPort' ) || '25';
+
+
+    $OUT .=    "export ROOT_URL=https://$rootURL/";
+    $OUT .=    "export MONGO_URL=mongodb://$mongoURL:$mongoTCPPort";
+    $OUT .=    "export PORT=$rocketchatTCPport";
+    $OUT .=    "export MAIL_URL=smtp://$mailURL:$mailPort";
+
+    }
+}
