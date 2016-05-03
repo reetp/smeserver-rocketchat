@@ -56,10 +56,10 @@ rm -rf %{name}-%{version}
 %post
 
 scl enable nodejs010 bash
-npm install -g inherits
-npm install -g n
+npm -g install inherits
+npm -g install n
 n 0.10.40
-npm install -g forever
+npm -g install forever
 exit
 
 

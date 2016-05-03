@@ -14,10 +14,10 @@
 #Setup Environment variables (if any)
 
 
-export ROOT_URL=https://test.reetspetit.info/
+export ROOT_URL=https://chat.server.local/
 export MONGO_URL=mongodb://localhost:27017/rocketchat
 export PORT=3000
-export MAIL_URL=smtp://reetspetit.info:25
+export MAIL_URL=smtp://server.local:25
 source /etc/profile.d/scls-nodejs010.sh
 
 # Check if any of $pid (could be plural) are running
