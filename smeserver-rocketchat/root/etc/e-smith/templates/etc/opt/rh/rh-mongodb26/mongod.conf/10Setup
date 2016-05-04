@@ -12,7 +12,7 @@
 ### Basic Defaults
 ##
 
-# SME settings
+# Koozali SME Server settings
 # enabled smallfiles = true
 
 # Comma separated list of ip addresses to listen on (all local ips by default)
