@@ -11,7 +11,7 @@
 
 
     my $mongoURL = $configDB->get_prop( 'rh-mongodb26-mongod', 'mongoURL' ) || 'localhost';
-    my $mongoTCPport = $configDB->get_prop( 'rh-mongodb26-mongod', 'TCPPortport' ) || '27017';
+    my $mongoTCPPort = $configDB->get_prop( 'rh-mongodb26-mongod', 'TCPPortport' ) || '27017';
 
     my $rootURL = $configDB->get_prop( 'rocketchat', 'rootURL' ) || 'chat.local.server';
     my $rocketchatTCPport = $configDB->get_prop( 'rocketchat', 'TCPport' ) || '3000';
@@ -19,10 +19,10 @@
     my $mailPort = $configDB->get_prop( 'rocketchat', 'mailPort' ) || '25';
 
 
-    $OUT .=    "export ROOT_URL=https://$rootURL/";
-    $OUT .=    "export MONGO_URL=mongodb://$mongoURL:$mongoTCPPort";
-    $OUT .=    "export PORT=$rocketchatTCPport";
-    $OUT .=    "export MAIL_URL=smtp://$mailURL:$mailPort";
+    $OUT .=    "export ROOT_URL=https://$rootURL\n";
+    $OUT .=    "export MONGO_URL=mongodb://$mongoURL:$mongoTCPPort\n";
+    $OUT .=    "export PORT=$rocketchatTCPport\n";
+    $OUT .=    "export MAIL_URL=smtp://$mailURL:$mailPort\n";
 
     }
 }
