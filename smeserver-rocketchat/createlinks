@@ -4,7 +4,6 @@
 
 use esmith::Build::CreateLinks qw(:all);
 # my $event = "ipsec-update";
-
 # ipsec-update
 
 foreach (qw(

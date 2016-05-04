@@ -1,3 +1,17 @@
+{
+use strict;
+use warnings;
+use esmith::ConfigDB;
+
+my $configDB = esmith::ConfigDB->open_ro or die("can't open Config DB");
+
+my $rocketchatStatus = $configDB->get_prop( 'rocketchat', 'status' ) || 'disabled';
+
+if ( $rocketchatStatus ne 'disabled' ) {
+
+    $OUT .=<<'EOF';
+
+
 # Check if any of $pid (could be plural) are running
 LOGFILE="/var/log/rocketchat.log"
 LOCKFILE="/var/lock/subsys/rocketchat"
@@ -166,3 +180,8 @@ case "$1" in
 	;;
 esac
 exit $?
+
+EOF
+
+}
+}

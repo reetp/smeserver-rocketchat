@@ -9,15 +9,25 @@
 
     if ( $rocketchatStatus ne 'disabled' ) {
 
-    $OUT .= <<'_EOF';
+    my $DomainName = $configDB->get("DomainName")->value;
+    my $SystemName = $configDB->get("SystemName")->value;
 
+    my $mongoURL = $configDB->get_prop( 'rh-mongodb26-mongod', 'mongoURL' ) || 'localhost';
+    my $mongoTCPPort = $configDB->get_prop( 'rh-mongodb26-mongod', 'TCPPortport' ) || '27017';
+    my $rootURL = $configDB->get_prop( 'rocketchat', 'rootURL' ) || "$SystemName.$DomainName";
+    my $rocketchatTCPport = $configDB->get_prop( 'rocketchat', 'TCPport' ) || '3000';
+
+    $OUT .= <<'_EOF';
     #!/bin/sh
     source /opt/rh/rh-mongodb26/enable
     export X_SCLS="`scl enable rh-mongodb26 'echo $X_SCLS'`"
-    export ROOT_URL=http://localhost:3000/
-    export PORT=3000
-    export MONGO_URL=mongodb://localhost:27017/rocketchat
+_EOF
 
-    _EOF
+    $OUT .=    "export ROOT_URL=https://$rootURL\n";
+    $OUT .=    "export MONGO_URL=mongodb://$mongoURL:$mongoTCPPort/rocketchat\n";
+    $OUT .=    "export PORT=$rocketchatTCPport\n";
+
+
+
     }
 }

@@ -1,0 +1,36 @@
+{
+    use strict;
+    use warnings;
+    use esmith::ConfigDB;
+
+    my $configDB = esmith::ConfigDB->open_ro or die("can't open Config DB");
+
+    my $rocketchatStatus = $configDB->get_prop( 'rocketchat', 'status' ) || 'disabled';
+
+    if ( $rocketchatStatus ne 'disabled' ) {
+
+
+            $OUT .=<<'_EOF';
+
+#!/bin/bash
+
+#
+#	/etc/rc.d/init.d/rocketchat
+#
+#	rocketchat - Provisioned using forever-service
+#
+# chkconfig: 2345 90 10 
+# description: forever-service startup script for node script based service rocketchat, uses forever to start the service
+#	CLI node /usr/local/bin/forever-service install -s main.js -e ROOT_URL=https://chat.server.local/ MONGO_URL=mongodb://localhost:27017/rocketchat PORT=3000 MAIL_URL=smtp://server.local:25 -p /opt/rh/nodejs010/root/usr/lib/node_modules/forever/bin rocketchat
+#	Working Directory /opt/Rocket.Chat
+
+_EOF
+    }
+
+
+    else {
+
+            $OUT .="# rocketchat is disabled \n";
+
+    }
+}
