@@ -9,8 +9,7 @@
 
     if ( $rocketchatStatus ne 'disabled' ) {
 
-
-            $OUT .=<<'_EOF';
+        $OUT .= <<'_EOF';
 
 #!/bin/bash
 
@@ -27,10 +26,9 @@
 _EOF
     }
 
-
     else {
 
-            $OUT .="# rocketchat is disabled \n";
+        $OUT .= "# rocketchat is disabled \n";
 
     }
 }

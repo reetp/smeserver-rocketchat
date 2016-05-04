@@ -3,9 +3,9 @@
     use warnings;
     use esmith::ConfigDB;
 
-# Need to figure if webapss are installed
-# if exists /etc/e-smith/events/webapps-update it's installed
-# If so the root_URL needs to be set to localhost
+    # Need to figure if webapss are installed
+    # if exists /etc/e-smith/events/webapps-update it's installed
+    # If so the root_URL needs to be set to localhost
 
     my $configDB = esmith::ConfigDB->open_ro or die("can't open Config DB");
 
@@ -13,25 +13,23 @@
 
     if ( $rocketchatStatus ne 'disabled' ) {
 
-    my $DomainName = $configDB->get("DomainName")->value;
-    my $SystemName = $configDB->get("SystemName")->value;
+        my $DomainName = $configDB->get("DomainName")->value;
+        my $SystemName = $configDB->get("SystemName")->value;
 
-    my $mongoURL = $configDB->get_prop( 'rh-mongodb26-mongod', 'mongoURL' ) || 'localhost';
-    my $mongoTCPPort = $configDB->get_prop( 'rh-mongodb26-mongod', 'TCPPortport' ) || '27017';
-    my $rootURL = $configDB->get_prop( 'rocketchat', 'rootURL' ) || "$SystemName.$DomainName";
-    my $rocketchatTCPport = $configDB->get_prop( 'rocketchat', 'TCPport' ) || '3000';
+        my $mongoURL     = $configDB->get_prop( 'rh-mongodb26-mongod', 'mongoURL' )    || 'localhost';
+        my $mongoTCPPort = $configDB->get_prop( 'rh-mongodb26-mongod', 'TCPPortport' ) || '27017';
+        my $rootURL      = $configDB->get_prop( 'rocketchat',          'rootURL' )     || "$SystemName.$DomainName";
+        my $rocketchatTCPport = $configDB->get_prop( 'rocketchat', 'TCPport' ) || '3000';
 
-    $OUT .= <<'_EOF';
+        $OUT .= <<'_EOF';
     #!/bin/sh
     source /opt/rh/rh-mongodb26/enable
     export X_SCLS="`scl enable rh-mongodb26 'echo $X_SCLS'`"
 _EOF
 
-    $OUT .=    "export ROOT_URL=http://$SystemName.DomainName:$rocketchatTCPport/\n";
-    $OUT .=    "export MONGO_URL=mongodb://$mongoURL:$mongoTCPPort/rocketchat\n";
-    $OUT .=    "export PORT=$rocketchatTCPport\n";
-
-
+        $OUT .= "export ROOT_URL=http://$SystemName.DomainName:$rocketchatTCPport/\n";
+        $OUT .= "export MONGO_URL=mongodb://$mongoURL:$mongoTCPPort/rocketchat\n";
+        $OUT .= "export PORT=$rocketchatTCPport\n";
 
     }
 }

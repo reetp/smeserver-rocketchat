@@ -5,7 +5,7 @@
 
     my $configDB = esmith::ConfigDB->open_ro or die("can't open Config DB");
 
-    $OUT .=<<'_EOF';
+    $OUT .= <<'_EOF';
 
 
 ##
