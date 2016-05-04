@@ -17,10 +17,11 @@
 
     my $rootURL = $configDB->get_prop( 'rocketchat', 'rootURL' ) || "$SystemName.$DomainName";
     my $rocketchatTCPport = $configDB->get_prop( 'rocketchat', 'TCPport' ) || '3000';
-    my $mailURL = $configDB->get_prop( 'rocketchat', 'mailURL' ) || "$DomainName";
+    my $mailURL = $configDB->get_prop( 'rocketchat', 'mailURL' ) || "$SystemName.$DomainName";
     my $mailPort = $configDB->get_prop( 'rocketchat', 'mailPort' ) || '25';
 
     $OUT .=    "#Setup Environment variables (if any)\n";
+    $OUT .=    "source /etc/profile.d/scls-nodejs010.sh\n";
     $OUT .=    "export ROOT_URL=https://$rootURL\n";
     $OUT .=    "export MONGO_URL=mongodb://$mongoURL:$mongoTCPPort/rocketchat\n";
     $OUT .=    "export PORT=$rocketchatTCPport\n";

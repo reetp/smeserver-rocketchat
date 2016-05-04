@@ -3,6 +3,10 @@
     use warnings;
     use esmith::ConfigDB;
 
+# Need to figure if webapss are installed
+# if exists /etc/e-smith/events/webapps-update it's installed
+# If so the root_URL needs to be set to localhost
+
     my $configDB = esmith::ConfigDB->open_ro or die("can't open Config DB");
 
     my $rocketchatStatus = $configDB->get_prop( 'rocketchat', 'status' ) || 'disabled';
@@ -23,7 +27,7 @@
     export X_SCLS="`scl enable rh-mongodb26 'echo $X_SCLS'`"
 _EOF
 
-    $OUT .=    "export ROOT_URL=https://$rootURL\n";
+    $OUT .=    "export ROOT_URL=http://$SystemName.DomainName:$rocketchatTCPport/\n";
     $OUT .=    "export MONGO_URL=mongodb://$mongoURL:$mongoTCPPort/rocketchat\n";
     $OUT .=    "export PORT=$rocketchatTCPport\n";
 
