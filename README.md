@@ -21,7 +21,7 @@ n 0.10.40
 npm -g install forever
 exit
 
-* Might be able to simplify the folloing a little
+* Might be able to simplify the following a little
 
 cd /root
 curl -L https://rocket.chat/releases/latest/download -o rocket.chat.tgz
@@ -60,7 +60,7 @@ config setprop rocketchat rootURL localhost mailURL localhost access private
 
 signal-event remoteaccess-update
 
-You can now visit Rocket.Chat at https://chat.yourserver.com.
+You can now visit Rocket.Chat at https://chat.yourserver.com
 
 Rocket.Chat will notice that the URL that is being used to access Rocket.Chat has been changed, and will propose to change it to the new URL.
 
