@@ -13,7 +13,7 @@
         my $SystemName = $configDB->get("SystemName")->value;
 
         my $mongoURL     = $configDB->get_prop( 'rh-mongodb26-mongod', 'mongoURL' )    || 'localhost';
-        my $mongoTCPPort = $configDB->get_prop( 'rh-mongodb26-mongod', 'TCPPortport' ) || '27017';
+        my $mongoTCPPort = $configDB->get_prop( 'rh-mongodb26-mongod', 'TCPPort' ) || '27017';
 
         my $rootURL           = $configDB->get_prop( 'rocketchat', 'rootURL' )  || "$SystemName.$DomainName";
         my $rocketchatTCPPort = $configDB->get_prop( 'rocketchat', 'TCPPort' )  || '3000';

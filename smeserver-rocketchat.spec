@@ -26,7 +26,7 @@ AutoReqProv: no
 The ultimate Free Open Source Solution for team communications.
 
 %changelog
-* Tue May 03 2016 John Crisp <jcrisp@safeandsoundit.co.uk> 0.1-1.sme
+* Tue May 06 2016 John Crisp <jcrisp@safeandsoundit.co.uk> 0.1-1.sme
 - Initial build
 
 
