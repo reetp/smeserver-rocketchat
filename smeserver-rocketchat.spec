@@ -13,7 +13,6 @@ BuildRoot: /var/tmp/%{name}-%{version}
 BuildArchitectures: noarch
 BuildRequires: e-smith-devtools
 Requires: e-smith-release >= 9.0
-Requires: libreswan >= 3.16
 Requires: rh-python34-python
 Requires: rh-mongodb26-mongodb
 Requires: rh-mongodb26-mongodb-server
