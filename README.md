@@ -40,12 +40,12 @@ cd /opt/Rocket.Chat/programs/server
 
 npm install
 
-yum --enablerepo=reetp install smeserver-rocketchat
+yum --enablerepo=epel,centos-sclo-rh,reetp install smeserver-rocketchat
 
 
 Config entries should then be set by default.
 
-http://chat.yourcerver.com:3000
+http://chat.yourserver.com:3000
 
 
 SSL
