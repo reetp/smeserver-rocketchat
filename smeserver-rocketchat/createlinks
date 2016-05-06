@@ -12,7 +12,8 @@ foreach (qw(
        /etc/profile.d/scls-rh-python34.sh
        /etc/profile.d/scls-rh-java-common.sh
        /etc/profile.d/scls-nodejs010.sh
-
+       /etc/opt/rh/rh-mongodb26/mongod.conf
+       
     ))
 
 {
