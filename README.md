@@ -29,16 +29,19 @@ exit
 * Might be able to simplify the following a little
 
 cd /root
+
 curl -L https://rocket.chat/releases/latest/download -o rocket.chat.tgz
 
-tar zxvf rocket.chat.tgz
+tar -zxvf rocket.chat.tgz
 
 mv bundle /opt/Rocket.Chat
 
 cd /opt/Rocket.Chat/programs/server
+
 npm install
 
 yum --enablerepo=reetp install smeserver-rocketchat
+
 
 Config entries should then be set by default.
 
