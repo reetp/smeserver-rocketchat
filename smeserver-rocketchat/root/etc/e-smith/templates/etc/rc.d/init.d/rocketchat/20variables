@@ -24,7 +24,7 @@
         $OUT .= "source /etc/profile.d/scls-nodejs010.sh\n";
         $OUT .= "export ROOT_URL=http://$rootURL\n";
         $OUT .= "export MONGO_URL=mongodb://$mongoURL:$mongoTCPPort/rocketchat\n";
-        $OUT .= "export PORT=$rocketchatTCPport\n";
+        $OUT .= "export PORT=$rocketchatTCPPort\n";
         $OUT .= "export MAIL_URL=smtp://$mailURL:$mailPort\n";
 
     }
