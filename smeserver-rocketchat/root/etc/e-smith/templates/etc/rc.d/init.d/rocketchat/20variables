@@ -16,7 +16,7 @@
         my $mongoTCPPort = $configDB->get_prop( 'rh-mongodb26-mongod', 'TCPPortport' ) || '27017';
 
         my $rootURL           = $configDB->get_prop( 'rocketchat', 'rootURL' )  || "$SystemName.$DomainName";
-        my $rocketchatTCPport = $configDB->get_prop( 'rocketchat', 'TCPport' )  || '3000';
+        my $rocketchatTCPPort = $configDB->get_prop( 'rocketchat', 'TCPPort' )  || '3000';
         my $mailURL           = $configDB->get_prop( 'rocketchat', 'mailURL' )  || "$SystemName.$DomainName";
         my $mailPort          = $configDB->get_prop( 'rocketchat', 'mailPort' ) || '25';
 
