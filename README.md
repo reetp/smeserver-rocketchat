@@ -15,17 +15,24 @@ Add repos
 yum --enablerepo=centos-sclo-rh,epel install nodejs010
 
 scl enable nodejs010 bash
+
 npm -g install inherits
+
 npm -g install n
+
 n 0.10.40
+
 npm -g install forever
+
 exit
 
 * Might be able to simplify the following a little
 
 cd /root
 curl -L https://rocket.chat/releases/latest/download -o rocket.chat.tgz
+
 tar zxvf rocket.chat.tgz
+
 mv bundle /opt/Rocket.Chat
 
 cd /opt/Rocket.Chat/programs/server
