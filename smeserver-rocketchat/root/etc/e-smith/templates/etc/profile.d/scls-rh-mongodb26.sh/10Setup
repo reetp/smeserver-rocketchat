@@ -3,7 +3,7 @@
     use warnings;
     use esmith::ConfigDB;
 
-    # Need to figure if webapss are installed
+    # Need to figure if webapps are installed
     # if exists /etc/e-smith/events/webapps-update it's installed
     # If so the root_URL needs to be set to localhost
 
@@ -11,7 +11,11 @@
 
     my $rocketchatStatus = $configDB->get_prop( 'rocketchat', 'status' ) || 'disabled';
 
-    if ( $rocketchatStatus ne 'disabled' ) {
+    # We technically should enable/disable on the basis of rh-mongodb26-mongod
+    # So we could use this key and change the if line following
+    # my $rh-mongodb26-mongod = $configDB->get_prop( 'rh-mongodb26-mongod', 'status' ) || 'disabled';
+
+    if ( $rocketchat ne 'disabled' ) {
 
         my $DomainName = $configDB->get("DomainName")->value;
         my $SystemName = $configDB->get("SystemName")->value;
@@ -27,9 +31,13 @@
     export X_SCLS="`scl enable rh-mongodb26 'echo $X_SCLS'`"
 _EOF
 
-        $OUT .= "export ROOT_URL=http://$SystemName.$DomainName:$rocketchatTCPport/\n";
+        $OUT .= "export ROOT_URL=http://$rootURL:$rocketchatTCPport/\n";
         $OUT .= "export MONGO_URL=mongodb://$mongoURL:$mongoTCPPort/rocketchat\n";
         $OUT .= "export PORT=$rocketchatTCPport\n";
 
+    }
+
+    else {
+        $OUT .= "# Rocketchat disabled\n";
     }
 }
