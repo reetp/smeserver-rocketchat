@@ -15,7 +15,7 @@
     # So we could use this key and change the if line following
     # my $rh-mongodb26-mongod = $configDB->get_prop( 'rh-mongodb26-mongod', 'status' ) || 'disabled';
 
-    if ( $rocketchat ne 'disabled' ) {
+    if ( $rocketchatStatus ne 'disabled' ) {
 
         $OUT .= <<'_EOF';
     #!/bin/sh
