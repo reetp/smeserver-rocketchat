@@ -12,11 +12,14 @@ Currently we need to add some things manually, and then use the contrib to easil
 
 Rocket
 
-Add repos
+Add repos:
+
+https://wiki.contribs.org/User:ReetP
 
 epel
 scl
 centos-sclo-sh
+reetp 
 
 yum install rh-python34-python rh-mongodb26-mongodb rh-mongodb26-mongodb-server \
 nodejs010 GraphicsMagick --enablerepo=centos-sclo-rh,epel
@@ -42,7 +45,7 @@ patch -p0 -i mailcomposer.patch
 
 Install smeserver-rocketchat contrib
 
-yum enablereo=reetp install smeserver-rocketchat
+yum enablerepo=reetp install smeserver-rocketchat
 
 db setprop rocketchat status enabled
 
