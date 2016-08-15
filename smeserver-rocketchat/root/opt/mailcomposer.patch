@@ -1,0 +1,19 @@
+diff -ruN /opt/Rocket.Chat/programs/server/npm/email/node_modules/mailcomposer/lib/mailcomposer.js.old /opt/Rocket.Chat/programs/server/npm/email/node_modules/mailcomposer/lib/mailcomposer.js
+--- /opt/Rocket.Chat/programs/server/npm/email/node_modules/mailcomposer/lib/mailcomposer.js.old   2016-05-17 08:03:02.000000000 +0200
++++ /opt/Rocket.Chat/programs/server/npm/email/node_modules/mailcomposer/lib/mailcomposer.js   2016-05-09 17:54:50.000000000 +0200
+@@ -99,6 +99,15 @@
+     this._gencounter = 0;
+
+     this.addHeader("MIME-Version", "1.0");
++//  Set up the date
++    var dateObj = new Date();
++//  Convert to UTC
++    dateObj = dateObj.toUTCString();
++//  Now add the Date header element
++    this.addHeader("Date", dateObj);
++    
++//    var TestDate = require('child_process').execSync('date', {encoding: 'utf8'} )
++//    console.log(date);
+ };
+
+ /* PUBLIC API */
