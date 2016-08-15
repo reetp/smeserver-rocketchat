@@ -18,9 +18,9 @@
     if ( $rocketchatStatus ne 'disabled' ) {
 
         $OUT .= <<'_EOF';
-    #!/bin/sh
-    source /opt/rh/rh-mongodb26/enable
-    export X_SCLS="`scl enable rh-mongodb26 'echo $X_SCLS'`"
+#!/bin/sh
+source /opt/rh/rh-mongodb26/enable
+export X_SCLS="`scl enable rh-mongodb26 'echo $X_SCLS'`"
 _EOF
 
     }
