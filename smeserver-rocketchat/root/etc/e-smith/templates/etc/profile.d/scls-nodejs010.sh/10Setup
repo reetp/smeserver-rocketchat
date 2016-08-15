@@ -17,5 +17,9 @@ export X_SCLS="`scl enable nodejs010 'echo $X_SCLS'`"
 _EOF
 
     }
+
+    else {
+        $OUT .= "# Rocketchat disabled\n";
+    }
 }
 
