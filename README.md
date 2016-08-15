@@ -10,45 +10,104 @@ This effort aims to reduce the complexity and make managing Rocket Chat easier.
 
 Currently we need to add some things manually, and then use the contrib to easily update various configuration items
 
+Rocket
+
 Add repos
 
-yum --enablerepo=centos-sclo-rh,epel install nodejs010
+epel
+scl
+centos-sclo-sh
+
+yum install rh-python34-python rh-mongodb26-mongodb rh-mongodb26-mongodb-server \
+nodejs010 GraphicsMagick --enablerepo=centos-sclo-rh,epel
 
 scl enable nodejs010 bash
-
-npm -g install inherits
-
-npm -g install n
-
+npm install -g inherits
+npm install -g n
 n 0.10.40
-
-npm -g install forever
-
 exit
 
-* Might be able to simplify the following a little
-
 cd /root
-
 curl -L https://rocket.chat/releases/latest/download -o rocket.chat.tgz
-
-tar -zxvf rocket.chat.tgz
-
+tar zxvf rocket.chat.tgz
 mv bundle /opt/Rocket.Chat
 
 cd /opt/Rocket.Chat/programs/server
-
 npm install
+npm install -g forever
 
-yum --enablerepo=epel,centos-sclo-rh,reetp install smeserver-rocketchat
+patch mailcomposer.js to add From header. You can use this from wherever the patch file is (currently in /opt):
+cd /opt
+patch -p0 -i mailcomposer.patch
+
+Install smeserver-rocketchat contrib
+
+yum enablereo=reetp install smeserver-rocketchat
+
+db setprop rocketchat status enabled
+
+signal-event post-upgrade;signal-event reboot
+
+rocketchat=service
+    TCPPort=3000
+    access=public
+    mailPort=25
+    mailURL=localhost
+    status=enabled
+
+rh-mongodb26-mongod=service
+    TCPPort=27017
+    access=private
+    mongoURL=localhost
+    status=enabled
+
+BEFORE we login for the first time we need to set up mail settings correctly:
+
+From bash
+mongo rocketchat --eval 'db.rocketchat_settings.update({"_id" : "SMTP_Host"}, {$set: {"value":"localhost"}});'
+mongo rocketchat --eval 'db.rocketchat_settings.update({"_id" : "From_Email"}, {$set: {"value":"admin@yourdomain.com"}});'
+
+We can check the individual values set like this:
+
+mongo rocketchat --eval 'db.rocketchat_settings.find({"_id":"From_Email"}, {_id:0, value:1}).shellPrint();'
+mongo rocketchat --eval 'db.rocketchat_settings.find({"_id":"SMTP_Host"}, {_id:0, value: 1}).shellPrint();'
+
+All values per _id:
+mongo rocketchat --eval 'db.rocketchat_settings.find({"_id" : "SMTP_Host"}).shellPrint();'
+mongo rocketchat --eval 'db.rocketchat_settings.find({"_id" : "From_Email"}).shellPrint();'
+
+Now restart rocketchat to reread the DB settings:
+
+service rocketchat restart
+
+Login at http://yourdomain:3000
+
+It will first get you to create an admin user. 
+
+If you have an issue with no email sent/received then login using the email address and password you just set
+
+Look for bugs :-)
 
 
-Config entries should then be set by default.
 
-http://chat.yourserver.com:3000
+Using mongo itself to modify the DB:
+
+mongo
+use rocketchat
+db.rocketchat_settings.find({"_id" : "SMTP_Host"})
+db.rocketchat_settings.find({"_id" : "From_Email"})
+
+db.rocketchat_settings.findOne({_id:'From_Email'}, {_id:0, value: 1})
+db.rocketchat_settings.findOne({_id:'SMTP_Host'}, {_id:0, value: 1})
 
 
-SSL
+db.rocketchat_settings.update({"_id" : "From_Email"}, {$set: {"value":"admin@reetspetit.info"}})
+db.rocketchat_settings.update({"_id" : "SMTP_Host"}, {$set: {"value":"mail.reetspetit.info"}})
+
+
+SSL / Proxies
+
+This is stil experimental !
 
 Make available in a subdomain and using https (this currently may interfere with letsencrypt)
 
