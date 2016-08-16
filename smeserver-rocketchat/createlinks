@@ -3,8 +3,8 @@
 # Need some thought on when the templates should be expanded and when the action should be called.
 
 use esmith::Build::CreateLinks qw(:all);
-# my $event = "ipsec-update";
-# ipsec-update
+# my $event = "rocketchat-update";
+# rocketchat-update
 
 foreach (qw(
        /etc/rc.d/init.d/rocketchat
@@ -13,8 +13,8 @@ foreach (qw(
        /etc/profile.d/scls-rh-java-common.sh
        /etc/profile.d/scls-nodejs010.sh
        /etc/opt/rh/rh-mongodb26/mongod.conf
-       
-    ))
+       /etc/e-smith/httpd/conf/httpd.conf
+       ))
 
 {
     templates2events("$_", qw(
@@ -26,7 +26,7 @@ foreach (qw(
 }
 
 #--------------------------------------------------
-# actions for ipsec-update event
+# sample actions for ipsec-update event
 #--------------------------------------------------
 
 #event_link("ipsec-update", $event, "10");
