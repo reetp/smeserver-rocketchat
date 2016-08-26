@@ -5,6 +5,7 @@
     my $t = $d->prop('ProxyPassTarget');
 
     $OUT .= "    SSLEngine On\n"  if ($port eq "443");
+    $OUT .= "    RewriteRule ^/\.well\-known/acme\-challenge(/.*|\$) https://%{HTTP_HOST}/.well-known/acme-challenge\$1 [L,R]\n" if ($port eq "80");
     $OUT .= "    ProxyPass /.well-known/acme-challenge/ !\n";
     $OUT .= "    ProxyPass / $t\n";
     $OUT .= "    ProxyPassReverse / $t";

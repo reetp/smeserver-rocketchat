@@ -25,7 +25,8 @@ AutoReqProv: no
 The ultimate Free Open Source Solution for team communications.
 
 %changelog
-* Tue Aug 16 2016 John Crisp <jcrisp@safeandsoundit.co.uk> 0.1-4.sme
+
+* Fri Aug 26 2016 John Crisp <jcrisp@safeandsoundit.co.uk> 0.1-4.sme
 - Add SSL / proxy support
 
 * Mon Aug 15 2016 John Crisp <jcrisp@safeandsoundit.co.uk> 0.1-3.sme
@@ -57,6 +58,7 @@ cd ..
 rm -rf %{name}-%{version}
 
 %files -f %{name}-%{version}-filelist
+
 %defattr(-,root,root)
 
 %pre
