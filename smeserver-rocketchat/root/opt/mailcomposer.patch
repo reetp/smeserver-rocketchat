@@ -1,6 +1,7 @@
-diff -ruN /opt/Rocket.Chat/programs/server/npm/email/node_modules/mailcomposer/lib/mailcomposer.js.old /opt/Rocket.Chat/programs/server/npm/email/node_modules/mailcomposer/lib/mailcomposer.js
---- /opt/Rocket.Chat/programs/server/npm/email/node_modules/mailcomposer/lib/mailcomposer.js.old   2016-05-17 08:03:02.000000000 +0200
-+++ /opt/Rocket.Chat/programs/server/npm/email/node_modules/mailcomposer/lib/mailcomposer.js   2016-05-09 17:54:50.000000000 +0200
+diff -ruN /opt/Rocket.Chat/programs/server/npm/node_modules/meteor/email/node_modules/mailcomposer/lib/mailcomposer.js.old /opt/Rocket.Chat/programs/server/npm/node_modules/meteor/email/node_modules/mailcomposer/lib/mailcomposer.js
+--- /opt/Rocket.Chat/programs/server/npm/node_modules/meteor/email/node_modules/mailcomposer/lib/mailcomposer.js.old   2016-10-31 08:03:02.000000000 +0200
++++ /opt/Rocket.Chat/programs/server/npm/node_modules/meteor/email/node_modules/mailcomposer/lib/mailcomposer.js   2016-10-31 17:54:50.000000000 +0200
+
 @@ -99,6 +99,15 @@
      this._gencounter = 0;
 
