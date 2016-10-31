@@ -21,8 +21,6 @@
         my $mailPort          = $configDB->get_prop( 'rocketchat', 'mailPort' ) || '25';
 
         $OUT .= "#Setup Environment variables (if any)\n";
-        # Don't think we need this - yes we do
-        $OUT .= "source /etc/profile.d/scls-nodejs010.sh\n";
         $OUT .= "export ROOT_URL=http://$rootURL:$rocketchatTCPPort\n";
         $OUT .= "export MONGO_URL=mongodb://$mongoURL:$mongoTCPPort/rocketchat\n";
         $OUT .= "export PORT=$rocketchatTCPPort\n";

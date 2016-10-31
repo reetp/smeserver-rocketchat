@@ -52,7 +52,7 @@ start() {
   #this is to ensure forever is able to find out the correct root every time
   export FOREVER_ROOT=/root/.forever
     
-  STATUS=$(/opt/rh/nodejs010/root/usr/lib/node_modules/forever/bin/forever --plain list | sed 's/data:\(\s*\[[0-9]*\]\s*\(rocketchat\)\s.*\)/\2-status:\1/;tx;d;:x')
+  STATUS=$(/usr/lib/node_modules/forever/bin/forever --plain list | sed 's/data:\(\s*\[[0-9]*\]\s*\(rocketchat\)\s.*\)/\2-status:\1/;tx;d;:x')
   
   if ! [ -z "$STATUS" ]; then
     echo "Service rocketchat already running"
@@ -64,12 +64,12 @@ start() {
 
 
   
-  # move to the directory from where the inital forever script was launched so that even if it is relative it works as expected
+  # move to the directory from where the initial forever script was launched so that even if it is relative it works as expected
   cd /opt/Rocket.Chat
 
   
 
-  /opt/rh/nodejs010/root/usr/lib/node_modules/forever/bin/forever \
+  /usr/lib/node_modules/forever/bin/forever \
   -a \
   -l $LOGFILE \
   --minUptime $MIN_UPTIME \
@@ -92,7 +92,7 @@ stop() {
   echo -n "Shutting down rocketchat: "
 
     
-  STATUS=$(/opt/rh/nodejs010/root/usr/lib/node_modules/forever/bin/forever --plain list | sed 's/data:\(\s*\[[0-9]*\]\s*\(rocketchat\)\s.*\)/\2-status:\1/;tx;d;:x')
+  STATUS=$(/usr/lib/node_modules/forever/bin/forever --plain list | sed 's/data:\(\s*\[[0-9]*\]\s*\(rocketchat\)\s.*\)/\2-status:\1/;tx;d;:x')
   
   if [ -z "$STATUS" ]; then
     echo "Not running"
@@ -101,7 +101,7 @@ stop() {
 
   # PID=$(<$PIDFILE) - Changed to detection based on actual PID from forever, sicne due to watchDirectory pid could dynamically change
     
-  PID=$(/opt/rh/nodejs010/root/usr/lib/node_modules/forever/bin/forever --plain list | sed -n -e '/data:\s*\[[0-9]*\]\s\(rocketchat\)\s/p' | awk '{print $7}')
+  PID=$(/usr/lib/node_modules/forever/bin/forever --plain list | sed -n -e '/data:\s*\[[0-9]*\]\s\(rocketchat\)\s/p' | awk '{print $7}')
   
 
   if [ -z "$PID" ]; then
@@ -113,7 +113,7 @@ stop() {
   #but we want to wait till some time and forcibly kill after elapsed time
   #without background script, we could be waiting forever
   
-  /opt/rh/nodejs010/root/usr/lib/node_modules/forever/bin/forever stop rocketchat 2>&1 >/dev/null &
+  /usr/lib/node_modules/forever/bin/forever stop rocketchat 2>&1 >/dev/null &
   
 
   CURRENTWAITTIME=$KILLWAITTIME
@@ -148,7 +148,7 @@ status() {
   export FOREVER_ROOT=/root/.forever
 
     
-  STATUS=$(/opt/rh/nodejs010/root/usr/lib/node_modules/forever/bin/forever --plain list | sed 's/data:\(\s*\[[0-9]*\]\s*\(rocketchat\)\s.*\)/\2-status:\1/;tx;d;:x')
+  STATUS=$(/usr/lib/node_modules/forever/bin/forever --plain list | sed 's/data:\(\s*\[[0-9]*\]\s*\(rocketchat\)\s.*\)/\2-status:\1/;tx;d;:x')
   
   if [ -z "$STATUS" ]; then
     echo "rocketchat is not running"
