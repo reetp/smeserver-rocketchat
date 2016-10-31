@@ -1,3 +1,5 @@
+Add the following repos:
+
 /sbin/e-smith/db yum_repositories set epel repository \
 Name 'Epel - EL6' \
 BaseURL 'http://download.fedoraproject.org/pub/epel/6/$basearch' \
@@ -9,7 +11,7 @@ Exclude perl-Razor-Agent \
 Visible no \
 status disabled
 
-db yum_repositories set reetp repository \
+/sbin/e-smith/db yum_repositories set reetp repository \
 BaseURL http://www.reetspetit.com/smeserver/\$releasever \
 EnableGroups no \
 GPGCheck no \
@@ -23,14 +25,13 @@ repository Name 'Centos-RH Software collections' \
 BaseURL 'http://mirror.centos.org/centos/$releasever/sclo/$basearch/rh/' \
 EnableGroups no Visible yes status disabled
 
-/sbin/e-smith/db db yum_repositories set nodejs \
+/sbin/e-smith/db yum_repositories set nodejs \
 repository Name 'Node JS 4' \
 BaseURL https://rpm.nodesource.com/pub_4.x/el/6/x86_64 \
 EnableGroups no GPGCheck no Visible yes status disabled
 
 
 Alternative to SCL is here:
-
 https://wiki.contribs.org/PHP_Software_Collections
 
 signal-event yum-modify
@@ -44,11 +45,18 @@ GraphicsMagick
 config set rocketchat service TCPPort 3000 mailPort 25 mailURL localhost rootURL localhost access public status enabled
 config set rh-mongodb26-mongod service TCPPort 27017 mongoURL localhost access private status enabled
 
+Either:
 
 cd /root
 curl -L https://rocket.chat/releases/latest/download -o rocket.chat.tgz
 tar zxvf rocket.chat.tgz
 mv bundle /opt/Rocket.Chat
+
+Or:
+
+Install the rocketchat RPM
+
+We have to do this as I have not automated it yet:
 
 cd /opt/Rocket.Chat/programs/server
 npm install
@@ -56,6 +64,26 @@ npm install
 
 npm install -g forever
 
+You should be able to install the smeserver-rocketchat RPM now
+
+Check /var/log/rocketchat.log
+
+➔ System ➔ startup
+➔ +--------------------------------------------------+
+➔ |                  SERVER RUNNING                  |
+➔ +--------------------------------------------------+
+➔ |                                                  |
+➔ |       Version: 0.44.0                            |
+➔ |  Process Port: 3000                              |
+➔ |      Site URL: http://rocketchat.local.net:3000  |
+➔ |         OpLog: Disabled                          |
+➔ |                                                  |
+➔ +--------------------------------------------------+
+
+
+
+===========================================================
+Manual config:
 expand-template /etc/rc.d/init.d/rocketchat
 expand-template /etc/profile.d/scls-rh-mongodb26.sh
 expand-template /etc/profile.d/scls-rh-python34.sh
@@ -64,7 +92,7 @@ expand-template /etc/opt/rh/rh-mongodb26/mongod.conf
 
 /etc/rc.d/init.d/rocketchat start
 /etc/rc.d/init.d/rh-mongodb26-mongos start
-
+===========================================================
 
 
 Proxy Pass
@@ -78,14 +106,12 @@ chat.reetspetit.info=domain
     letsencryptSSLcert=enabled
 
 
-
-
 SSL
-Important.png	Note:
+Note:
 This is still experimental and there may be issues with SSL only for the Primary iBay and Letsencrypt. You will need a minimum version of smeserver-rocketchat-0.1-5
 
 
-Important.png	Note:
+Note:
 I've realised I need to re-hack the web templates for this but still trying to work it out - please ask in the forums and I can give you some tips to get it working
 
 It is recommended to add Letsencrypt support as detailed below.
