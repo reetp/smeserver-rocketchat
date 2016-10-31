@@ -1,6 +1,6 @@
 %define name smeserver-rocketchat
 %define version 0.1
-%define release 5
+%define release 6
 Summary: Plugin to enable RocketChat
 Name: %{name}
 Version: %{version}
@@ -16,7 +16,7 @@ Requires: e-smith-release >= 9.0
 Requires: rh-python34-python
 Requires: rh-mongodb26-mongodb
 Requires: rh-mongodb26-mongodb-server
-Requires: nodejs010
+Requires: nodejs >= 4.5
 Requires: GraphicsMagick
 
 AutoReqProv: no
@@ -25,6 +25,8 @@ AutoReqProv: no
 The ultimate Free Open Source Solution for team communications.
 
 %changelog
+* Tue Oct 31 2016 John Crisp <jcrisp@safeandsoundit.co.uk> 0.1-6.sme
+- Update for Rocket v0.40+ allowing for higher version of node
 
 * Fri Aug 26 2016 John Crisp <jcrisp@safeandsoundit.co.uk> 0.1-5.sme
 - Fix Proxy pass for letsencrypt
@@ -54,6 +56,15 @@ rm -rf $RPM_BUILD_ROOT
 rm -f %{name}-%{version}-filelist
 /sbin/e-smith/genfilelist $RPM_BUILD_ROOT > %{name}-%{version}-filelist
 echo "%doc COPYING" >> %{name}-%{version}-filelist
+
+# if exists remove the following
+if [[ -f /etc/e-smith/templates/etc/profile.d/scls-nodejs010.sh ]];
+then rm -f /etc/e-smith/templates/etc/profile.d/scls-nodejs010.sh;
+fi
+
+if [[ ! -e /etc/profile.d/scls-nodejs010.sh ]];
+then rm -f /etc/profile.d/scls-nodejs010.sh;
+fi
 
 
 %clean
