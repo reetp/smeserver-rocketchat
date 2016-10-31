@@ -1,0 +1,131 @@
+/sbin/e-smith/db yum_repositories set epel repository \
+Name 'Epel - EL6' \
+BaseURL 'http://download.fedoraproject.org/pub/epel/6/$basearch' \
+MirrorList 'http://mirrors.fedoraproject.org/mirrorlist?repo=epel-6&arch=$basearch' \
+EnableGroups no \
+GPGCheck yes \
+GPGKey http://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL \
+Exclude perl-Razor-Agent \
+Visible no \
+status disabled
+
+db yum_repositories set reetp repository \
+BaseURL http://www.reetspetit.com/smeserver/\$releasever \
+EnableGroups no \
+GPGCheck no \
+Name "ReetP Repo" \
+GPGKey http://www.reetspetit.com/RPM-GPG-KEY \
+Visible yes \
+status disabled
+
+/sbin/e-smith/db yum_repositories set centos-sclo-rh \
+repository Name 'Centos-RH Software collections' \
+BaseURL 'http://mirror.centos.org/centos/$releasever/sclo/$basearch/rh/' \
+EnableGroups no Visible yes status disabled
+
+/sbin/e-smith/db db yum_repositories set nodejs \
+repository Name 'Node JS 4' \
+BaseURL https://rpm.nodesource.com/pub_4.x/el/6/x86_64 \
+EnableGroups no GPGCheck no Visible yes status disabled
+
+
+Alternative to SCL is here:
+
+https://wiki.contribs.org/PHP_Software_Collections
+
+signal-event yum-modify
+
+yum --enablerepo=nodejs install nodejs nodejs-devel
+
+yum --enablerepo=centos-sclo-rh,epel install scl-utils rh-python34-python rh-mongodb26-mongodb rh-mongodb26-mongodb-server \
+GraphicsMagick 
+
+
+config set rocketchat service TCPPort 3000 mailPort 25 mailURL localhost rootURL localhost access public status enabled
+config set rh-mongodb26-mongod service TCPPort 27017 mongoURL localhost access private status enabled
+
+
+cd /root
+curl -L https://rocket.chat/releases/latest/download -o rocket.chat.tgz
+tar zxvf rocket.chat.tgz
+mv bundle /opt/Rocket.Chat
+
+cd /opt/Rocket.Chat/programs/server
+npm install
+(optional modules should get installed fibers underscore source-map-support semver)
+
+npm install -g forever
+
+expand-template /etc/rc.d/init.d/rocketchat
+expand-template /etc/profile.d/scls-rh-mongodb26.sh
+expand-template /etc/profile.d/scls-rh-python34.sh
+expand-template /etc/profile.d/scls-rh-java-common.sh
+expand-template /etc/opt/rh/rh-mongodb26/mongod.conf
+
+/etc/rc.d/init.d/rocketchat start
+/etc/rc.d/init.d/rh-mongodb26-mongos start
+
+
+
+Proxy Pass
+
+[root@test e-smith]# db domains show
+chat.reetspetit.info=domain
+    Description=RocketChat
+    Nameservers=internet
+    ProxyPassTarget=http://127.0.0.1:3000/
+    TemplatePath=ProxyPassVirtualRocketchat
+    letsencryptSSLcert=enabled
+
+
+
+
+SSL
+Important.png	Note:
+This is still experimental and there may be issues with SSL only for the Primary iBay and Letsencrypt. You will need a minimum version of smeserver-rocketchat-0.1-5
+
+
+Important.png	Note:
+I've realised I need to re-hack the web templates for this but still trying to work it out - please ask in the forums and I can give you some tips to get it working
+
+It is recommended to add Letsencrypt support as detailed below.
+We need some extra settings to enable SSL with ProxyPass.
+
+First install proxy pass rpm:
+yum --enablerepo=fws install mod_proxy_wstunnel
+
+Regenerate httpd.conf
+signal-event remoteaccess-update
+
+Now we need to setup our subdomain
+
+db domains set chat.mycompany.local domain Description RocketChat Nameservers internet \
+TemplatePath ProxyPassVirtualRocketchat ProxyPassTarget http://localhost:3000/
+
+It should look like this:
+chat.mycompany.local=domain
+   Nameservers=internet
+   ProxyPassTarget=http://127.0.0.1:3000/
+   TemplatePath=ProxyPassVirtualRocketchat
+
+We need to set Rocket.Chat to listen on localhost now:
+
+config setprop rocketchat rootURL localhost
+signal-event remoteaccess-update
+service rocketchat restart
+
+If you can now successfully get to Rocketchat on your subdomain https://chat.mycompany.local you can disable default access on port 3000:
+
+config setprop rocketchat access private
+signal-event remoteaccess-update
+
+
+
+
+
+
+
+
+
+
+
