@@ -1,6 +1,6 @@
 # smeserver-rocketchat
 
-How to install Rocket Chat on Koozali SME Server
+How to install Rocket Chat on Koozali SME Server (this only works up to Rocket 0.39 - I am currently working on an update)
 
 The current wiki page gives a comprehensive manual guide.
 
@@ -24,6 +24,8 @@ yum install scl-utils rh-python34-python rh-mongodb26-mongodb rh-mongodb26-mongo
 
 cd /opt/Rocket.Chat/programs/server
 npm install -g forever fibers underscore source-map-support semver
+
+You will have to make sure that you get a version no later than 0.39)
 
 cd /root
 curl -L https://rocket.chat/releases/latest/download -o rocket.chat.tgz
