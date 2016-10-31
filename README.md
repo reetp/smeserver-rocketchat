@@ -17,27 +17,18 @@ Add repos:
 https://wiki.contribs.org/User:ReetP
 
 epel
-scl
 centos-sclo-sh
 reetp 
 
-yum install rh-python34-python rh-mongodb26-mongodb rh-mongodb26-mongodb-server \
-nodejs010 GraphicsMagick --enablerepo=centos-sclo-rh,epel
+yum install scl-utils rh-python34-python rh-mongodb26-mongodb rh-mongodb26-mongodb-server GraphicsMagick --enablerepo=centos-sclo-rh,epel
 
-scl enable nodejs010 bash
-npm install -g inherits
-npm install -g n
-n 0.10.40
-exit
+cd /opt/Rocket.Chat/programs/server
+npm install -g forever fibers underscore source-map-support semver
 
 cd /root
 curl -L https://rocket.chat/releases/latest/download -o rocket.chat.tgz
 tar zxvf rocket.chat.tgz
 mv bundle /opt/Rocket.Chat
-
-cd /opt/Rocket.Chat/programs/server
-npm install
-npm install -g forever
 
 patch mailcomposer.js to add From header. You can use this from wherever the patch file is (currently in /opt):
 cd /opt
@@ -110,21 +101,19 @@ db.rocketchat_settings.update({"_id" : "SMTP_Host"}, {$set: {"value":"mail.reets
 
 SSL / Proxies
 
-This is stil experimental !
+This is still experimental !
 
 Make available in a subdomain and using https (this currently may interfere with letsencrypt)
-
-Install the Webapps-common contrib.
 
 To create your sub domain (e.g. https://chat.yourserver.com)
 
 db domains set chat.yourserver.com domain Description "RocketChat" Nameservers internet \
-TemplatePath WebAppVirtualHost RequireSSL enabled ProxyPassTarget http://localhost:3000/
+TemplatePath ProxyPassVirtualRocketchat RequireSSL enabled ProxyPassTarget http://localhost:3000/
 
 The 'ProxyPassTarget' property could also point to another host (IP) that has Rocket.Chat installed, e.g. a virtual SME Server on the same LAN.
-In that case, also LDAP and open/close ports have to be taken into consideration. To expand and activate:
+In that case, also LDAP and open/close ports have to be taken into consideration. 
 
-signal-event webapps-update
+signal-event remoteaccess-update
 
 To disable the default access on port 3000, for we now access our chat platform via the subdomain, and for security we close the default access method.
 
