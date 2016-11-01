@@ -45,26 +45,27 @@ GraphicsMagick
 config set rocketchat service TCPPort 3000 mailPort 25 mailURL localhost rootURL localhost access public status enabled
 config set rh-mongodb26-mongod service TCPPort 27017 mongoURL localhost access private status enabled
 
-Either:
+You should be able to install the smeserver-rocketchat RPM now
+
+RocketChat itself
+
+Either manual install :
 
 cd /root
 curl -L https://rocket.chat/releases/latest/download -o rocket.chat.tgz
 tar zxvf rocket.chat.tgz
 mv bundle /opt/Rocket.Chat
+chown -R root:root /opt/Rocket.Chat
+cd /opt/Rocket.Chat/programs/server
+npm install
+(optional modules should get installed fibers underscore source-map-support semver)
+npm install -g forever
 
 Or:
 
 Install the rocketchat RPM
+(should install the correct modules)
 
-We have to do this as I have not automated it yet:
-
-cd /opt/Rocket.Chat/programs/server
-npm install
-(optional modules should get installed fibers underscore source-map-support semver)
-
-npm install -g forever
-
-You should be able to install the smeserver-rocketchat RPM now
 
 Check /var/log/rocketchat.log
 
@@ -73,12 +74,31 @@ Check /var/log/rocketchat.log
 ➔ |                  SERVER RUNNING                  |
 ➔ +--------------------------------------------------+
 ➔ |                                                  |
-➔ |       Version: 0.44.0                            |
+➔ |       Version: 0.45.0                            |
 ➔ |  Process Port: 3000                              |
 ➔ |      Site URL: http://rocketchat.local.net:3000  |
 ➔ |         OpLog: Disabled                          |
 ➔ |                                                  |
 ➔ +--------------------------------------------------+
+
+If you have issues make sure you stop the rocket chat service
+
+service rocketchat stop
+
+Check your node versions:
+
+[root@test Rocket.Chat]# node -v
+v4.5.0
+[root@test Rocket.Chat]# npm -v
+3.10.8
+
+Modify with
+
+n 0.4.6
+
+Try running main.js
+/opt/Rocket.Chat
+node main.js
 
 
 
