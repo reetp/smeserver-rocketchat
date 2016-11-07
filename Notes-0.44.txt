@@ -42,7 +42,7 @@ yum --enablerepo=centos-sclo-rh,epel install scl-utils rh-python34-python rh-mon
 GraphicsMagick 
 
 
-config set rocketchat service TCPPort 3000 mailPort 25 mailURL localhost rootURL localhost access public status enabled
+config set rocketchat service TCPPort 3000 mailPort 25 mailURL localhost access public status enabled
 config set rh-mongodb26-mongod service TCPPort 27017 mongoURL localhost access private status enabled
 
 You should be able to install the smeserver-rocketchat RPM now

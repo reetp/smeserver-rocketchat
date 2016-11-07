@@ -1,6 +1,6 @@
 %define name smeserver-rocketchat
 %define version 0.1
-%define release 6
+%define release 7
 Summary: Plugin to enable RocketChat
 Name: %{name}
 Version: %{version}
@@ -25,6 +25,9 @@ AutoReqProv: no
 The ultimate Free Open Source Solution for team communications.
 
 %changelog
+* Mon Nov 07 2016 John Crisp <jcrisp@safeandsoundit.co.uk> 0.1-7.sme
+- add logrotate template (not built yet)
+
 * Tue Oct 31 2016 John Crisp <jcrisp@safeandsoundit.co.uk> 0.1-6.sme
 - Update for Rocket v0.40+ allowing for higher version of node
 
