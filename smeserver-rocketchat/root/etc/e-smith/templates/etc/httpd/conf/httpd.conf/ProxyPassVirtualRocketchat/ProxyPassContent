@@ -7,8 +7,8 @@
     if ( $port eq "80" ) {
         $OUT .= "    # Redirect Letsencrypt queries\n";
         $OUT .= "    RewriteRule ^/.well-known/acme-challenge(/.*|\$) https://%{HTTP_HOST}/.well-known/acme-challenge\$1 [L,R]\n";
-        $OUT .= "    # Everything else goes to https/home\n";
-        $OUT .= "    RewriteRule ^/(.*|\$) https://%{HTTP_HOST}/home [R,L]\n";
+        $OUT .= "    # Everything else goes to https\n";
+        $OUT .= "    RewriteRule ^/(.*|\$) https://%{HTTP_HOST}/ [R,L]\n";
     }
 
     if ( $port eq "443" ) {
