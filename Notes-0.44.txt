@@ -17,8 +17,7 @@ EnableGroups no \
 GPGCheck no \
 Name "ReetP Repo" \
 GPGKey http://www.reetspetit.com/RPM-GPG-KEY \
-Visible yes \
-status disabled
+Visible yes status disabled
 
 /sbin/e-smith/db yum_repositories set centos-sclo-rh \
 repository Name 'Centos-RH Software collections' \
@@ -41,15 +40,19 @@ yum --enablerepo=nodejs install nodejs nodejs-devel
 yum --enablerepo=centos-sclo-rh,epel install scl-utils rh-python34-python rh-mongodb26-mongodb rh-mongodb26-mongodb-server \
 GraphicsMagick 
 
+You should be able to install the smeserver-rocketchat RPM now
+
+yum --enablerepo=reetp install smeserver-rocketchat
 
 config set rocketchat service TCPPort 3000 mailPort 25 mailURL localhost access public status enabled
 config set rh-mongodb26-mongod service TCPPort 27017 mongoURL localhost access private status enabled
 
-You should be able to install the smeserver-rocketchat RPM now
+signal-event post-upgrade;signal-event reboot
+
 
 RocketChat itself
 
-Either manual install :
+Manual install :
 
 cd /root
 curl -L https://rocket.chat/releases/latest/download -o rocket.chat.tgz
@@ -61,10 +64,6 @@ npm install
 (optional modules should get installed fibers underscore source-map-support semver)
 npm install -g forever
 
-Or:
-
-Install the rocketchat RPM
-(should install the correct modules)
 
 
 Check /var/log/rocketchat.log

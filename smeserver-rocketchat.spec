@@ -25,8 +25,9 @@ AutoReqProv: no
 The ultimate Free Open Source Solution for team communications.
 
 %changelog
-* Mon Nov 07 2016 John Crisp <jcrisp@safeandsoundit.co.uk> 0.1-7.sme
-- add logrotate template (not built yet)
+* Wed Nov 23 2016 John Crisp <jcrisp@safeandsoundit.co.uk> 0.1-7.sme
+- add logrotate template
+- Remove /home from http redirect
 
 * Tue Oct 31 2016 John Crisp <jcrisp@safeandsoundit.co.uk> 0.1-6.sme
 - Update for Rocket v0.40+ allowing for higher version of node
