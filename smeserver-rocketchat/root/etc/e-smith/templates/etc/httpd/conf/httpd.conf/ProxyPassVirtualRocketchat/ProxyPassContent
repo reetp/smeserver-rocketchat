@@ -13,6 +13,7 @@
 
     if ( $port eq "443" ) {
         $OUT .= "    SSLEngine On\n";
+        $OUT .= "    ProxyPreserveHost On\n";
         $OUT .= "    # Letsencrypt\n";
         $OUT .= "    ProxyPass /.well-known/acme-challenge/ !\n";
         $OUT .= "    # Websockets\n";
