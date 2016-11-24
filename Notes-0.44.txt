@@ -155,7 +155,7 @@ chat.mycompany.local=domain
 
 We need to set Rocket.Chat to listen on localhost now:
 
-config setprop rocketchat rootURL localhost
+config setprop rocketchat rootURL chat.mycompany.local SSLProxy yes
 signal-event remoteaccess-update
 service rocketchat restart
 
