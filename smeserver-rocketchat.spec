@@ -1,6 +1,6 @@
 %define name smeserver-rocketchat
 %define version 0.1
-%define release 7
+%define release 8
 Summary: Plugin to enable RocketChat
 Name: %{name}
 Version: %{version}
@@ -25,6 +25,10 @@ AutoReqProv: no
 The ultimate Free Open Source Solution for team communications.
 
 %changelog
+* Thu Nov 24 2016 John Crisp <jcrisp@safeandsoundit.co.uk> 0.1-8.sme
+- Modify SSL Support
+- Add SSLProxy key
+
 * Wed Nov 23 2016 John Crisp <jcrisp@safeandsoundit.co.uk> 0.1-7.sme
 - add logrotate template
 - Remove /home from http redirect
