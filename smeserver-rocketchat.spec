@@ -25,7 +25,7 @@ AutoReqProv: no
 The ultimate Free Open Source Solution for team communications.
 
 %changelog
-* Thu Nov 24 2016 John Crisp <jcrisp@safeandsoundit.co.uk> 0.1-9.sme
+* Tue Dec 20 2016 John Crisp <jcrisp@safeandsoundit.co.uk> 0.1-9.sme
 - Fix incorrect curly brace in 20variables
 
 * Thu Nov 24 2016 John Crisp <jcrisp@safeandsoundit.co.uk> 0.1-8.sme
