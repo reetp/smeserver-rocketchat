@@ -48,3 +48,20 @@ service_link_enhanced("rh-mongodb26-mongod", "S98", "7");
 service_link_enhanced("rh-mongodb26-mongod", "K21", "6");
 service_link_enhanced("rh-mongodb26-mongod", "K21", "0");
 service_link_enhanced("rh-mongodb26-mongod", "K21", "1");
+
+# Set up generic logfile timestamp renaming/symlinking
+
+foreach (qw(
+    /var/log/pluto/rocketchat.log
+    ))
+{
+    safe_touch "root/etc/e-smith/events/logrotate/logfiles2timestamp/$_";
+}
+
+#--------------------------------------------------
+# actions for logrotate event
+#--------------------------------------------------
+
+#$event = "logrotate";
+
+#safe_symlink("restart", "root/etc/e-smith/events/$event/services2adjust/ipsec");

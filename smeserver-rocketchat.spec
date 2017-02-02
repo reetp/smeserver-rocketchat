@@ -1,6 +1,6 @@
 %define name smeserver-rocketchat
 %define version 0.1
-%define release 11
+%define release 12
 Summary: Plugin to enable RocketChat
 Name: %{name}
 Version: %{version}
@@ -16,7 +16,7 @@ Requires: e-smith-release >= 9.0
 Requires: rh-python34-python
 Requires: rh-mongodb26-mongodb
 Requires: rh-mongodb26-mongodb-server
-Requires: nodejs >= 4.5
+Requires: nodejs >= 4.7
 Requires: GraphicsMagick
 
 AutoReqProv: no
@@ -25,6 +25,12 @@ AutoReqProv: no
 The ultimate Free Open Source Solution for team communications.
 
 %changelog
+# v12 not yet built
+* Thu Jan 19 2017 John Crisp <jcrisp@safeandsoundit.co.uk> 0.1-12.sme
+- Add log rotate
+- bump nodejs requires for newer version of rocketchat
+- mailcomposer patch removed as this is now in Meteor
+
 * Wed Dec 21 2016 John Crisp <jcrisp@safeandsoundit.co.uk> 0.1-11.sme
 - Fix incorrect link in createlinks
 
@@ -96,6 +102,12 @@ rm -rf %{name}-%{version}
 %preun
 %post
 
+echo "****************************************"
 echo "https://wiki.contribs.org/Rocket_Chat"
+echo "Check node -v"
+echo "n 4.7.2"
+echo "Check npm --version"
+echo "npm install -g npm@3.10.9"
+echo "****************************************"
 
 %postun
