@@ -90,6 +90,15 @@ if [[ ! -e /etc/profile.d/scls-nodejs010.sh ]];
 then rm -f /etc/profile.d/scls-nodejs010.sh;
 fi
 
+# Need to clean old symlinks
+
+rm -f /etc/rc.d/rc0.d/K21rh-mongodb26-mongod 2> /dev/null
+rm -f /etc/rc.d/rc1.d/K21rh-mongodb26-mongod 2> /dev/null
+rm -f /etc/rc.d/rc6.d/K21rh-mongodb26-mongod 2> /dev/null
+
+rm -f /etc/rc.d/rc0.d/K21rocketchat 2> /dev/null
+rm -f /etc/rc.d/rc0.d/K21rocketchat 2> /dev/null
+rm -f /etc/rc.d/rc6.d/K21rocketchat 2> /dev/null
 
 %clean
 cd ..
