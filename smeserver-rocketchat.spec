@@ -81,6 +81,19 @@ rm -f %{name}-%{version}-filelist
 /sbin/e-smith/genfilelist $RPM_BUILD_ROOT > %{name}-%{version}-filelist
 echo "%doc COPYING" >> %{name}-%{version}-filelist
 
+
+%clean
+cd ..
+rm -rf %{name}-%{version}
+
+%files -f %{name}-%{version}-filelist
+
+%defattr(-,root,root)
+
+%pre
+%preun
+%post
+
 # if exists remove the following
 if [[ -f /etc/e-smith/templates/etc/profile.d/scls-nodejs010.sh ]];
 then rm -f /etc/e-smith/templates/etc/profile.d/scls-nodejs010.sh;
@@ -99,18 +112,6 @@ rm -f /etc/rc.d/rc6.d/K21rh-mongodb26-mongod 2> /dev/null
 rm -f /etc/rc.d/rc0.d/K21rocketchat 2> /dev/null
 rm -f /etc/rc.d/rc0.d/K21rocketchat 2> /dev/null
 rm -f /etc/rc.d/rc6.d/K21rocketchat 2> /dev/null
-
-%clean
-cd ..
-rm -rf %{name}-%{version}
-
-%files -f %{name}-%{version}-filelist
-
-%defattr(-,root,root)
-
-%pre
-%preun
-%post
 
 echo "****************************************"
 echo "https://wiki.contribs.org/Rocket_Chat"
