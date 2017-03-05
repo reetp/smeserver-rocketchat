@@ -25,11 +25,12 @@ AutoReqProv: no
 The ultimate Free Open Source Solution for team communications.
 
 %changelog
-# v12 not yet built
-* Thu Jan 19 2017 John Crisp <jcrisp@safeandsoundit.co.uk> 0.1-12.sme
+
+* Sun Mar 05 2017 John Crisp <jcrisp@safeandsoundit.co.uk> 0.1-12.sme
 - Add log rotate
 - bump nodejs requires for newer version of rocketchat
 - mailcomposer patch removed as this is now in Meteor
+- Remove mongo service createlinks
 
 * Wed Dec 21 2016 John Crisp <jcrisp@safeandsoundit.co.uk> 0.1-11.sme
 - Fix incorrect link in createlinks
