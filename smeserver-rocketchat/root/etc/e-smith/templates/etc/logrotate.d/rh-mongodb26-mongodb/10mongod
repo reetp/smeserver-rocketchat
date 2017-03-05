@@ -1,0 +1,23 @@
+/var/opt/rh/rh-mongodb26/log/mongodb/*.log {
+       weekly
+       rotate 10
+       copytruncate
+       delaycompress
+       compress
+       notifempty
+       missingok
+       create
+       postrotate
+
+# Reference
+#      https://serverfault.com/questions/540423/mongodb-proper-way-to-rotate-logs/653095
+
+# Original Line
+#      /bin/kill -USR1 `cat /var/opt/rh/rh-mongodb26/run/mongodb/mongod.pid 2>/dev/null` 2> /dev/null|| true
+
+# New line
+       /bin/kill -USR1 `cat /var/opt/rh/rh-mongodb26/run/mongodb/mongod.pid 2>/dev/null` 2> /dev/null|| true
+
+        rm /var/opt/rh/rh-mongodb26/log/mongodb/mongod.log.????-??-??T??-??-??
+       endscript
+}
