@@ -25,8 +25,8 @@ AutoReqProv: no
 The ultimate Free Open Source Solution for team communications.
 
 %changelog
-# v12 not yet built
-* Mo 06 Feb 2017 John Crisp <jcrisp@safeandsoundit.co.uk> 0.1-12.sme
+* Thu Apr 20 2017 John Crisp <jcrisp@safeandsoundit.co.uk> 0.1-12.sme
+- Add new kill links
 - Add log rotate
 - bump nodejs requires for newer version of rocketchat
 - mailcomposer patch removed as this is now in Meteor

@@ -23,36 +23,20 @@ foreach (qw(
     ));
 }
 
-#--------------------------------------------------
-# sample actions for ipsec-update event
-#--------------------------------------------------
-
-#event_link("ipsec-update", $event, "10");
-
-# Runlevel init links.
-#service_link_enhanced("ipsec", "S95", "7");
-#service_link_enhanced("ipsec", "K21", "6");
-#service_link_enhanced("ipsec", "K21", "0");
-#service_link_enhanced("ipsec", "K21", "1");
-
-#safe_symlink("adjust", "root/etc/e-smith/events/$event/services2adjust/masq");
-
-
 # Runlevel init links.
 service_link_enhanced("rocketchat", "S99", "7");
-service_link_enhanced("rocketchat", "K21", "6");
-service_link_enhanced("rocketchat", "K21", "0");
-service_link_enhanced("rocketchat", "K21", "1");
-
-service_link_enhanced("rh-mongodb26-mongod", "S98", "7");
-service_link_enhanced("rh-mongodb26-mongod", "K21", "6");
-service_link_enhanced("rh-mongodb26-mongod", "K21", "0");
-service_link_enhanced("rh-mongodb26-mongod", "K21", "1");
+service_link_enhanced("rocketchat", "K01", "0");
+service_link_enhanced("rocketchat", "K01", "1");
+service_link_enhanced("rocketchat", "K01", "2");
+service_link_enhanced("rocketchat", "K01", "3");
+service_link_enhanced("rocketchat", "K01", "4");
+service_link_enhanced("rocketchat", "K01", "5");
+service_link_enhanced("rocketchat", "K01", "6");
 
 # Set up generic logfile timestamp renaming/symlinking
 
 foreach (qw(
-    /var/log/pluto/rocketchat.log
+    /var/log/rocketchat.log
     ))
 {
     safe_touch "root/etc/e-smith/events/logrotate/logfiles2timestamp/$_";
