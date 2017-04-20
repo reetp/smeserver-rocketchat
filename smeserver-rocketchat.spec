@@ -25,12 +25,13 @@ AutoReqProv: no
 The ultimate Free Open Source Solution for team communications.
 
 %changelog
+
 * Thu Apr 20 2017 John Crisp <jcrisp@safeandsoundit.co.uk> 0.1-12.sme
 - Add new kill links
 - Add log rotate
 - bump nodejs requires for newer version of rocketchat
 - mailcomposer patch removed as this is now in Meteor
-- Fix logrotate error in the RH supplied cron template
+- Remove mongo service createlinks
 
 * Wed Dec 21 2016 John Crisp <jcrisp@safeandsoundit.co.uk> 0.1-11.sme
 - Fix incorrect link in createlinks
@@ -81,15 +82,6 @@ rm -f %{name}-%{version}-filelist
 /sbin/e-smith/genfilelist $RPM_BUILD_ROOT > %{name}-%{version}-filelist
 echo "%doc COPYING" >> %{name}-%{version}-filelist
 
-# if exists remove the following
-if [[ -f /etc/e-smith/templates/etc/profile.d/scls-nodejs010.sh ]];
-then rm -f /etc/e-smith/templates/etc/profile.d/scls-nodejs010.sh;
-fi
-
-if [[ ! -e /etc/profile.d/scls-nodejs010.sh ]];
-then rm -f /etc/profile.d/scls-nodejs010.sh;
-fi
-
 
 %clean
 cd ..
@@ -102,6 +94,25 @@ rm -rf %{name}-%{version}
 %pre
 %preun
 %post
+
+# if exists remove the following
+if [[ -f /etc/e-smith/templates/etc/profile.d/scls-nodejs010.sh ]];
+then rm -f /etc/e-smith/templates/etc/profile.d/scls-nodejs010.sh;
+fi
+
+if [[ ! -e /etc/profile.d/scls-nodejs010.sh ]];
+then rm -f /etc/profile.d/scls-nodejs010.sh;
+fi
+
+# Need to clean old symlinks
+
+rm -f /etc/rc.d/rc0.d/K21rh-mongodb26-mongod 2> /dev/null
+rm -f /etc/rc.d/rc1.d/K21rh-mongodb26-mongod 2> /dev/null
+rm -f /etc/rc.d/rc6.d/K21rh-mongodb26-mongod 2> /dev/null
+
+rm -f /etc/rc.d/rc0.d/K21rocketchat 2> /dev/null
+rm -f /etc/rc.d/rc1.d/K21rocketchat 2> /dev/null
+rm -f /etc/rc.d/rc6.d/K21rocketchat 2> /dev/null
 
 echo "****************************************"
 echo "https://wiki.contribs.org/Rocket_Chat"
