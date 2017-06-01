@@ -12,14 +12,15 @@
     }
 
     if ( $port eq "443" ) {
-        $OUT .= "    SSLEngine On\n";
-        $OUT .= "    ProxyPreserveHost On\n";
-        $OUT .= "    # Letsencrypt\n";
-        $OUT .= "    ProxyPass /.well-known/acme-challenge/ !\n";
-        $OUT .= "    # Websockets\n";
-        $OUT .= "    ProxyPassMatch ^/sockjs/(.*)/websocket ws://localhost:3000/sockjs/\$1/websocket\n";
-        $OUT .= "    # Everything else\n";
-        $OUT .= "    ProxyPass / http://127.0.0.1:3000/\n";
-        $OUT .= "    ProxyPassReverse / http://127.0.0.1:3000/\n";
+	$OUT .= "    # SSL Directives\n";
+	$OUT .= "    SSLEngine on\n";
+
+	$OUT .= "    RewriteEngine On\n";
+    $OUT .= "    RewriteCond %{HTTP:Upgrade} =websocket [NC]\n";
+    $OUT .= "    RewriteRule /(.*)           ws://localhost:3000/\$1 [P,L]\n";
+    $OUT .= "    RewriteCond %{HTTP:Upgrade} !=websocket [NC]\n";
+    $OUT .= "    RewriteRule /(.*)           http://localhost:3000/\$1 [P,L]\n";
+    $OUT .= "    ProxyPassReverse / http://localhost:3000/\n";
+
     }
 }

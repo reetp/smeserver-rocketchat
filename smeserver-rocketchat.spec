@@ -1,6 +1,6 @@
 %define name smeserver-rocketchat
 %define version 0.1
-%define release 12
+%define release 13
 Summary: Plugin to enable RocketChat
 Name: %{name}
 Version: %{version}
@@ -25,6 +25,9 @@ AutoReqProv: no
 The ultimate Free Open Source Solution for team communications.
 
 %changelog
+* Thu Jun 01 2017 John Crisp <jcrisp@safeandsoundit.co.uk> 0.1-13.sme
+- Update httpd proxy template as per recommendation
+- https://rocket.chat/docs/installation/manual-installation/configuring-ssl-reverse-proxy
 
 * Sun Mar 05 2017 John Crisp <jcrisp@safeandsoundit.co.uk> 0.1-12.sme
 - Add log rotate
@@ -115,9 +118,11 @@ rm -f /etc/rc.d/rc6.d/K21rocketchat 2> /dev/null
 
 echo "****************************************"
 echo "https://wiki.contribs.org/Rocket_Chat"
-echo "Check node -v"
+echo "npm install -g n
+echo "Check node -v and modify if required with"
 echo "n 4.7.2"
 echo "Check npm --version"
+echo "npm -v"
 echo "npm install -g npm@3.10.9"
 echo "****************************************"
 
