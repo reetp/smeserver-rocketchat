@@ -29,7 +29,8 @@ The ultimate Free Open Source Solution for team communications.
 - Update httpd proxy template as per recommendation
 - https://rocket.chat/docs/installation/manual-installation/configuring-ssl-reverse-proxy
 
-* Sun Mar 05 2017 John Crisp <jcrisp@safeandsoundit.co.uk> 0.1-12.sme
+* Thu Apr 20 2017 John Crisp <jcrisp@safeandsoundit.co.uk> 0.1-12.sme
+- Add new kill links
 - Add log rotate
 - bump nodejs requires for newer version of rocketchat
 - mailcomposer patch removed as this is now in Meteor
@@ -113,7 +114,7 @@ rm -f /etc/rc.d/rc1.d/K21rh-mongodb26-mongod 2> /dev/null
 rm -f /etc/rc.d/rc6.d/K21rh-mongodb26-mongod 2> /dev/null
 
 rm -f /etc/rc.d/rc0.d/K21rocketchat 2> /dev/null
-rm -f /etc/rc.d/rc0.d/K21rocketchat 2> /dev/null
+rm -f /etc/rc.d/rc1.d/K21rocketchat 2> /dev/null
 rm -f /etc/rc.d/rc6.d/K21rocketchat 2> /dev/null
 
 echo "****************************************"

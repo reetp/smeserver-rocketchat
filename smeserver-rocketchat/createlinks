@@ -25,21 +25,21 @@ foreach (qw(
 
 # Runlevel init links.
 service_link_enhanced("rocketchat", "S99", "7");
-service_link_enhanced("rocketchat", "K01", "6");
+
+# Must be an easier way....
 service_link_enhanced("rocketchat", "K01", "0");
 service_link_enhanced("rocketchat", "K01", "1");
+service_link_enhanced("rocketchat", "K01", "2");
+service_link_enhanced("rocketchat", "K01", "3");
+service_link_enhanced("rocketchat", "K01", "4");
+service_link_enhanced("rocketchat", "K01", "5");
+service_link_enhanced("rocketchat", "K01", "6");
 
-# I think the following are unnecessary as the mongo RPM adds its own links
-# 
-#service_link_enhanced("rh-mongodb26-mongod", "S98", "7");
-#service_link_enhanced("rh-mongodb26-mongod", "K21", "6");
-#service_link_enhanced("rh-mongodb26-mongod", "K21", "0");
-#service_link_enhanced("rh-mongodb26-mongod", "K21", "1");
 
 # Set up generic logfile timestamp renaming/symlinking
 
 foreach (qw(
-    /var/log/pluto/rocketchat.log
+    /var/log/rocketchat.log
     ))
 {
     safe_touch "root/etc/e-smith/events/logrotate/logfiles2timestamp/$_";
