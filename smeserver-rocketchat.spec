@@ -1,6 +1,6 @@
 %define name smeserver-rocketchat
 %define version 0.1
-%define release 13
+%define release 14
 Summary: Plugin to enable RocketChat
 Name: %{name}
 Version: %{version}
@@ -25,6 +25,10 @@ AutoReqProv: no
 The ultimate Free Open Source Solution for team communications.
 
 %changelog
+* Thu Jul 27 2017 John Crisp <jcrisp@safeandsoundit.co.uk> 0.1-14.sme
+- Proxy template does not work on Apache 2.2
+- Revised proxy templates that also work with letsencrypt
+
 * Thu Jun 01 2017 John Crisp <jcrisp@safeandsoundit.co.uk> 0.1-13.sme
 - Update httpd proxy template as per recommendation
 - https://rocket.chat/docs/installation/manual-installation/configuring-ssl-reverse-proxy
