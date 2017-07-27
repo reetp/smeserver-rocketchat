@@ -1,26 +1,33 @@
 {
     use esmith::DomainsDB;
+    use esmith::ConfigDB;
     my $db = esmith::DomainsDB->open_ro;
-    my $d  = $db->get($virtualHost);
-    my $t  = $d->prop('ProxyPassTarget');
+    my $config = esmith::ConfigDB->open_ro;
+    my $domain  = $db->get($virtualHost);
+    my $target  = $domain->prop('ProxyPassTarget') || 'http://127.0.0.1:3000';
+    my $target  =~ s~http[s]*://~~g; 
+    my $SSLProxy = $config->getprop('rocketchat', 'SSLProxy') || '';
 
     if ( $port eq "80" ) {
-        $OUT .= "    # Redirect Letsencrypt queries\n";
-        $OUT .= "    RewriteRule ^/.well-known/acme-challenge(/.*|\$) https://%{HTTP_HOST}/.well-known/acme-challenge\$1 [L,R]\n";
+        $OUT .= "    # Alias for letsencrypt\n";
+        $OUT .= "    Alias /.well-known/acme-challenge/ /home/e-smith/files/ibays/Primary/html/.well-known/acme-challenge/\n";
         $OUT .= "    # Everything else goes to https\n";
-        $OUT .= "    RewriteRule ^/(.*|\$) https://%{HTTP_HOST}/ [R,L]\n";
+        $OUT .= "    RewriteRule ^/(.*|\$) https://%{HTTP_HOST}/\$1 [R,L]\n";
     }
 
     if ( $port eq "443" ) {
-	$OUT .= "    # SSL Directives\n";
-	$OUT .= "    SSLEngine on\n";
 
-	$OUT .= "    RewriteEngine On\n";
-    $OUT .= "    RewriteCond %{HTTP:Upgrade} =websocket [NC]\n";
-    $OUT .= "    RewriteRule /(.*)           ws://localhost:3000/\$1 [P,L]\n";
-    $OUT .= "    RewriteCond %{HTTP:Upgrade} !=websocket [NC]\n";
-    $OUT .= "    RewriteRule /(.*)           http://localhost:3000/\$1 [P,L]\n";
-    $OUT .= "    ProxyPassReverse / http://localhost:3000/\n";
-
+        $OUT .= "    # SSL Directives\n";
+        $OUT .= "    SSLEngine on\n";
+        $OUT .= "    ProxyPreserveHost On\n";
+        $OUT .= "    # Letsencrypt - proxy bypass\n";
+        $OUT .= "    ProxyPass /.well-known/acme-challenge/ !\n";
+        $OUT .= "    ProxyPassMatch ^.*/sockjs/(.*)/websocket ws://$target/sockjs/\$1/websocket\n";
+        $OUT .= "    ProxyPass /websocket ws://$target/websocket\n";
+        $OUT .= "    ProxyPass /api/info http://$target/api/info\n";
+        $OUT .= "    ProxyPass / http://$target/\n";
+        $OUT .= "    ProxyPassReverse / http://$target/\n";
+        $OUT .= "    # Letsencrypt - Alias processed after rewrite rules\n";
+        $OUT .= "    Alias /.well-known/acme-challenge/ /home/e-smith/files/ibays/Primary/html/.well-known/acme-challenge/\n";
     }
 }

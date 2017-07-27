@@ -1,4 +1,13 @@
-    RewriteEngine on
-    RewriteCond %{REQUEST_METHOD} ^(TRACE|TRACK)
-    RewriteRule .* - [F]
+{
+if ( $port eq "80" ) {
+    $OUT .= "    RewriteEngine on\n";
+    $OUT .= "    RewriteCond %{REQUEST_METHOD} ^(TRACE|TRACK)\n";
+    $OUT .= "    RewriteRule .* - [F]\n";
+    }
+if ( $port eq "443" ) {
+    $OUT .= "    RewriteEngine on\n";
+    $OUT .= "    RewriteCond %{REQUEST_METHOD} ^(TRACE|TRACK)\n";
+    $OUT .= "    RewriteRule .* - [F]\n";
+    }
+}
 
