@@ -5,7 +5,7 @@
     my $config = esmith::ConfigDB->open_ro;
     my $domain  = $db->get($virtualHost);
     my $target  = $domain->prop('ProxyPassTarget') || 'http://127.0.0.1:3000';
-    my $target  =~ s~http[s]*://~~g; 
+    $target  =~ s~http[s]*://~~g; 
     my $SSLProxy = $config->getprop('rocketchat', 'SSLProxy') || '';
 
     if ( $port eq "80" ) {
