@@ -1,2 +1,3 @@
-/.project
+*.project
 *.ERR
+/root/sbin/*
