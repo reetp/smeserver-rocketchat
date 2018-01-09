@@ -1,6 +1,6 @@
 %define name smeserver-rocketchat
 %define version 0.1
-%define release 14
+%define release 15
 Summary: Plugin to enable RocketChat
 Name: %{name}
 Version: %{version}
@@ -12,11 +12,11 @@ Source: %{name}-%{version}.tar.gz
 BuildRoot: /var/tmp/%{name}-%{version}
 BuildArchitectures: noarch
 BuildRequires: e-smith-devtools
-Requires: e-smith-release >= 9.0
+Requires: e-smith-release >= 9.2
 Requires: rh-python34-python
 Requires: rh-mongodb26-mongodb
 Requires: rh-mongodb26-mongodb-server
-Requires: nodejs >= 4.7
+Requires: nodejs >= 4.8
 Requires: GraphicsMagick
 
 AutoReqProv: no
@@ -25,6 +25,11 @@ AutoReqProv: no
 The ultimate Free Open Source Solution for team communications.
 
 %changelog
+* Tue Jan 09 2018 John Crisp <jcrisp@safeandsoundit.co.uk> 0.1-15.sme
+- Update SME Version
+- Update node version
+- Fix missing quote
+
 * Thu Jul 27 2017 John Crisp <jcrisp@safeandsoundit.co.uk> 0.1-14.sme
 - Proxy template does not work on Apache 2.2
 - Revised proxy templates that also work with letsencrypt
@@ -123,9 +128,9 @@ rm -f /etc/rc.d/rc6.d/K21rocketchat 2> /dev/null
 
 echo "****************************************"
 echo "https://wiki.contribs.org/Rocket_Chat"
-echo "npm install -g n
+echo "npm install -g n"
 echo "Check node -v and modify if required with"
-echo "n 4.7.2"
+echo "n 8.9.3"
 echo "Check npm --version"
 echo "npm -v"
 echo "npm install -g npm@3.10.9"
