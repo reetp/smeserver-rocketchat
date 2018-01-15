@@ -30,6 +30,13 @@
         $OUT .= "export MONGO_URL=mongodb://$mongoURL:$mongoTCPPort/rocketchat\n";
         $OUT .= "export PORT=$rocketchatTCPPort\n";
         $OUT .= "export MAIL_URL=smtp://$mailURL:$mailPort\n";
+        
+        $OUT .= "# result of whereis forever or whereis node\n";
+        $OUT .= "export PATH=/usr/local/bin:$PATH\n";
+
+        $OUT .= "# result of whereis node_modules\n";
+        $OUT .= "#export NODE_PATH=$NODE_PATH:/usr/local/lib/node_modules
+
 
     }
 }
