@@ -1,0 +1,38 @@
+# This is a sample config file for docker-compose v 1.5
+#
+# This particular config requires a reverse proxy and appropriate domain for Rocketchat to work
+#
+# The file can run more than one container
+#
+# docker-compose up -d
+# docker-compose stop rocketchat
+# docker-compose start rocketchat
+#
+# You can also use more than one compose file
+#
+# docker-compose -f mycontainers.yml up -d
+
+
+#rocketchat:
+#    image: rocketchat/rocket.chat:latest
+#    container_name: rocketchat
+#    environment:
+#        - MONGO_URL=mongodb://127.0.0.1:27017/rocketchat
+#        - ROOT_URL=https://yourserver.com
+#        - MAIL_URL=smtp://127.0.0.1:25
+#        - Accounts_UseDNSDomainCheck=True
+#        - HUBOT_FORECAST_API_KEY=DerverKeyRequiredFromDarkSky.Net
+#        - HUBOT_WEATHER_CELSIUS=Celcius
+#    ports:
+#      - 3000:3000
+#    net: "host"
+    # Specify an absolute path mapping
+#    volumes:
+#    - /opt/uploads:/opt/uploads
+#    - /opt/hubot-scripts/src/scripts/:/opt/hubot-scripts/src/scripts/
+#    restart: on-failure:2
+    # Might need the UID/GID rather than name
+    # user: dockerroot:dockerroot
+    # grep dockerroot /etc/passwd 
+#    user:393:391
+#    mem_limit: 256MB
