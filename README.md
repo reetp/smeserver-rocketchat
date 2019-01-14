@@ -22,6 +22,15 @@ reetp
 
 yum install scl-utils rh-python34-python rh-mongodb26-mongodb rh-mongodb26-mongodb-server GraphicsMagick --enablerepo=centos-sclo-rh,epel
 
+
+yum --enablerepo=centos-sclo-rh install rh-mongodb30upg,rh-mongodb32
+
+
+
+Old way - we now use docker as we can't compile various modules on CentOS 6 very easily
+
+
+
 cd /opt/Rocket.Chat/programs/server
 npm install -g forever fibers underscore source-map-support semver
 

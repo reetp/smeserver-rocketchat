@@ -13,18 +13,18 @@
 
     # We technically should enable/disable on the basis of rh-mongodb26-mongod
     # So we could use this key and change the if line following
-    my $rhmongodb26 = $configDB->get_prop( 'rh-mongodb26-mongod', 'status' ) || 'disabled';
+    my $rhmongodb30upg = $configDB->get_prop( 'rh-mongodb30upg-mongod', 'status' ) || 'disabled';
 
-    if ( $rhmongodb26 ne 'disabled' ) {
+    if ( $rhmongodb30upg ne 'disabled' ) {
 
         $OUT .= <<'_EOF';
 #!/bin/sh
-source /opt/rh/rh-mongodb26/enable
-export X_SCLS="`scl enable rh-mongodb26 'echo $X_SCLS'`"
+source /opt/rh/rh-mongodb30upg/enable
+export X_SCLS="`scl enable rh-mongodb30upg 'echo $X_SCLS'`"
 _EOF
     }
 
     else {
-        $OUT .= "# Mongo26 disabled\n";
+        $OUT .= "# Mongo30upg disabled\n";
     }
 }

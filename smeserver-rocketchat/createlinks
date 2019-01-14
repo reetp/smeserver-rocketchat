@@ -9,9 +9,13 @@ use esmith::Build::CreateLinks qw(:all);
 foreach (qw(
        /etc/rc.d/init.d/rocketchat
        /etc/profile.d/scls-rh-mongodb26.sh
+       /etc/profile.d/scls-rh-mongodb30upg.sh
+       /etc/profile.d/scls-rh-mongodb32.sh
        /etc/profile.d/scls-rh-python34.sh
        /etc/profile.d/scls-rh-java-common.sh
        /etc/opt/rh/rh-mongodb26/mongod.conf
+       /etc/opt/rh/rh-mongodb30upg/mongod.conf
+       /etc/opt/rh/rh-mongodb32/mongod.conf
        ))
 
 {
@@ -23,27 +27,27 @@ foreach (qw(
     ));
 }
 
-# Runlevel init links.
-service_link_enhanced("rocketchat", "S99", "7");
-
-# Must be an easier way....
-service_link_enhanced("rocketchat", "K01", "0");
-service_link_enhanced("rocketchat", "K01", "1");
-service_link_enhanced("rocketchat", "K01", "2");
-service_link_enhanced("rocketchat", "K01", "3");
-service_link_enhanced("rocketchat", "K01", "4");
-service_link_enhanced("rocketchat", "K01", "5");
-service_link_enhanced("rocketchat", "K01", "6");
+## Runlevel init links.
+#service_link_enhanced("rocketchat", "S99", "7");
+#
+## Must be an easier way....
+#service_link_enhanced("rocketchat", "K01", "0");
+#service_link_enhanced("rocketchat", "K01", "1");
+#service_link_enhanced("rocketchat", "K01", "2");
+#service_link_enhanced("rocketchat", "K01", "3");
+#service_link_enhanced("rocketchat", "K01", "4");
+#service_link_enhanced("rocketchat", "K01", "5");
+#service_link_enhanced("rocketchat", "K01", "6");
 
 
 # Set up generic logfile timestamp renaming/symlinking
 
-foreach (qw(
-    /var/log/rocketchat.log
-    ))
-{
-    safe_touch "root/etc/e-smith/events/logrotate/logfiles2timestamp/$_";
-}
+#foreach (qw(
+#    /var/log/rocketchat.log
+#    ))
+#{
+#    safe_touch "root/etc/e-smith/events/logrotate/logfiles2timestamp/$_";
+#}
 
 #--------------------------------------------------
 # actions for logrotate event

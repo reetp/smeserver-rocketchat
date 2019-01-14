@@ -14,8 +14,9 @@ BuildArchitectures: noarch
 BuildRequires: e-smith-devtools
 Requires: e-smith-release >= 9.2
 Requires: rh-python34-python
-Requires: rh-mongodb26-mongodb
-Requires: rh-mongodb26-mongodb-server
+Requires: rh-mongodb26
+Requires: rh-mongodb30upg
+Requires: rh-mongodb32
 Requires: nodejs >= 4.8
 Requires: GraphicsMagick
 Requires:  mod_proxy_wstunnel >= 0.1
@@ -27,6 +28,10 @@ AutoReqProv: no
 The ultimate Free Open Source Solution for team communications.
 
 %changelog
+* Mon Jan 14 2019 John Crisp <jcrisp@safeandsoundit.co.uk> 0.2-2.sme
+- remove old rocketchat service now we use docker
+- add settings for mongod30upg and mongod32
+
 * Fri Aug 17 2018 John Crisp <jcrisp@safeandsoundit.co.uk> 0.2-1.sme
 - Move to using Docker
 
@@ -133,12 +138,7 @@ rm -f /etc/rc.d/rc6.d/K21rocketchat 2> /dev/null
 
 echo "****************************************"
 echo "https://wiki.contribs.org/Rocket_Chat"
-echo "npm install -g n"
-echo "Check node -v and modify if required with"
-echo "n 8.9.3"
-echo "Check npm --version"
-echo "npm -v"
-echo "npm install -g npm@3.10.9"
+
 echo "****************************************"
 
 %postun
