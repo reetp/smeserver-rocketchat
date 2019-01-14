@@ -28,6 +28,12 @@ foreach (qw(
 }
 
 ## Runlevel init links.
+service_link_enhanced("rh-mongodb26-mongod", "S51", "7");
+service_link_enhanced("rh-mongodb30upg-mongod", "S51", "7");
+service_link_enhanced("rh-mongodb32-mongod", "S51", "7");
+
+
+## Runlevel init links.
 #service_link_enhanced("rocketchat", "S99", "7");
 #
 ## Must be an easier way....

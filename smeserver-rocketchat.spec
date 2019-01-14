@@ -1,6 +1,6 @@
 %define name smeserver-rocketchat
 %define version 0.2
-%define release 2
+%define release 3
 Summary: Plugin to enable RocketChat
 Name: %{name}
 Version: %{version}
@@ -28,6 +28,9 @@ AutoReqProv: no
 The ultimate Free Open Source Solution for team communications.
 
 %changelog
+* Mon Jan 14 2019 John Crisp <jcrisp@safeandsoundit.co.uk> 0.2-3.sme
+- Add service links
+
 * Mon Jan 14 2019 John Crisp <jcrisp@safeandsoundit.co.uk> 0.2-2.sme
 - remove old rocketchat service now we use docker
 - add settings for mongodb30upg and mongodb32
