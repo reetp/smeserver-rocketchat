@@ -1,6 +1,6 @@
 %define name smeserver-rocketchat
 %define version 0.2
-%define release 3
+%define release 4
 Summary: Plugin to enable RocketChat
 Name: %{name}
 Version: %{version}
@@ -28,6 +28,10 @@ AutoReqProv: no
 The ultimate Free Open Source Solution for team communications.
 
 %changelog
+* Tue Jan 15 2019 John Crisp <jcrisp@safeandsoundit.co.uk> 0.2-4.sme
+- create /var/opt/data/db as standard db location
+- set mongodb30upg and mongodb32 conf to use standard DB dir
+
 * Mon Jan 14 2019 John Crisp <jcrisp@safeandsoundit.co.uk> 0.2-3.sme
 - Add service links
 
@@ -119,6 +123,10 @@ rm -rf %{name}-%{version}
 %pre
 %preun
 %post
+
+if [[ -d /var/opt/data/db ]];
+then mkdir -p /var/opt/data/db;
+fir
 
 # if exists remove the following
 if [[ -f /etc/e-smith/templates/etc/profile.d/scls-nodejs010.sh ]];

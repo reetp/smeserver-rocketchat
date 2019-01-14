@@ -34,7 +34,8 @@ logpath = /var/opt/rh/rh-mongodb30upg/log/mongodb/mongod.log
 unixSocketPrefix = /var/opt/rh/rh-mongodb30upg/run/mongodb
 
 # Directory for datafiles (defaults to /data/db/)
-dbpath = /var/opt/rh/rh-mongodb30upg/lib/mongodb
+# dbpath = /var/opt/rh/rh-mongodb30upg/lib/mongodb
+dbpath = /var/opt/data/db
 
 # Enable/Disable journaling (journaling is on by default for 64 bit)
 #journal = true
