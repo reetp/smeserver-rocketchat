@@ -12,6 +12,8 @@
 ## https://docs.mongodb.org/manual/reference/configuration-options/
 ##
 
+# *** This is YAML formatted. NO Tabs allowed and careful with indentation ***
+
 # Koozali SME Server settings
 # enabled smallfiles = true - see below
 
@@ -76,7 +78,7 @@ net:
 storage:
   # Directory for datafiles (defaults to /data/db/)
   #dbPath: /var/opt/rh/rh-mongodb32/lib/mongodb
-  dbpath = /var/opt/data/db
+  dbPath: /var/opt/data/db
 
   #journal:
     # Enable/Disable journaling (journaling is on by default for 64 bit)
@@ -86,7 +88,7 @@ storage:
   # Also possible to use unstable engines: devnull|ephemeralForTest
   #engine: <string>
 
-  #mmapv1:
+  mmapv1:
     # Enable or disable the preallocation of data files (true by default)
     #preallocDataFiles: <boolean>
 
@@ -129,8 +131,6 @@ storage:
 
 # sharding Options - Shard settings
 #sharding:
-
-   
 
 _EOF
 

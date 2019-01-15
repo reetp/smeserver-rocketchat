@@ -1,6 +1,6 @@
 %define name smeserver-rocketchat
 %define version 0.2
-%define release 6
+%define release 7
 Summary: Plugin to enable RocketChat
 Name: %{name}
 Version: %{version}
@@ -15,6 +15,8 @@ BuildRequires: e-smith-devtools
 Requires: e-smith-release >= 9.2
 Requires: rh-python34-python
 Requires: rh-mongodb32-mongodb-server
+Requires: rh-mongodb32-mongodb
+requires: rh-mongodb32-mongo-tools
 #Requires: nodejs >= 4.8
 #Requires: GraphicsMagick
 Requires: mod_proxy_wstunnel >= 0.1
@@ -26,6 +28,10 @@ AutoReqProv: no
 The ultimate Free Open Source Solution for team communications.
 
 %changelog
+* Tue Jan 15 2019 John Crisp <jcrisp@safeandsoundit.co.uk> 0.2-7.sme
+- Update mongodb32 conf file for YAML
+- requires rh-mongodb32-mongodb & requires: rh-mongodb32-mongo-tools
+
 * Tue Jan 15 2019 John Crisp <jcrisp@safeandsoundit.co.uk> 0.2-6.sme
 - remove required for mongo 2.6 and 3.0upg
 
@@ -131,6 +137,7 @@ rm -rf %{name}-%{version}
 
 if [[ -d /var/opt/data/db ]];
 then mkdir -p /var/opt/data/db;
+chmod mongodb:mongodb /var/opt/data/db;
 fi
 
 # if exists remove the following
