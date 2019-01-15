@@ -127,7 +127,13 @@ storage:
 #operationProfiling:
 
 # replication Options - ReplSet settings
-#replication:
+replication:
+#  oplogSizeMB: <int> > Normally 5% of disk space
+  replSetName: rs0
+# is only available with the mmapv1 storage engine > default all
+#  secondaryIndexPrefetch: <string>
+# Defaults to true
+#  enableMajorityReadConcern: <boolean>
 
 # sharding Options - Shard settings
 #sharding:

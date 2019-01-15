@@ -1,5 +1,37 @@
 # smeserver-rocketchat
 
+
+In flux and being updated
+
+This is now designed to work with rocketchat in Docker and mongo via SCL installation
+
+```rs.initiate({ _id: 'rs0', members: [ { _id: 0, host: 'localhost:27017' } ]})```
+
+
+Add repos:
+
+https://wiki.contribs.org/User:ReetP
+
+epel
+centos-sclo-sh
+reetpTest
+
+
+yum --enablerepo=centos-sclo-rh,reetpTest install smeserver-rocketchat, scl-utils, rh-mongodb30upg,rh-mongodb32
+
+
+======================================================================
+
+For older installs: mongodb26
+
+
+yum install scl-utils rh-python34-python rh-mongodb26-mongodb rh-mongodb26-mongodb-server GraphicsMagick --enablerepo=centos-sclo-rh,epel
+
+
+The following are older notes
+
+
+
 How to install Rocket Chat on Koozali SME Server (this only works up to Rocket 0.39 - I am currently working on an update)
 
 The current wiki page gives a comprehensive manual guide.
