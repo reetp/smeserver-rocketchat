@@ -16,6 +16,7 @@ foreach (qw(
        /etc/opt/rh/rh-mongodb26/mongod.conf
        /etc/opt/rh/rh-mongodb30upg/mongod.conf
        /etc/opt/rh/rh-mongodb32/mongod.conf
+       /home/e-smith/files/docker/configs/docker-compose.yml
        ))
 
 {

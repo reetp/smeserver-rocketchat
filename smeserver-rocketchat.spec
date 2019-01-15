@@ -1,6 +1,6 @@
 %define name smeserver-rocketchat
 %define version 0.2
-%define release 4
+%define release 6
 Summary: Plugin to enable RocketChat
 Name: %{name}
 Version: %{version}
@@ -14,8 +14,6 @@ BuildArchitectures: noarch
 BuildRequires: e-smith-devtools
 Requires: e-smith-release >= 9.2
 Requires: rh-python34-python
-Requires: rh-mongodb26-mongodb-server
-Requires: rh-mongodb30upg-mongodb-server
 Requires: rh-mongodb32-mongodb-server
 #Requires: nodejs >= 4.8
 #Requires: GraphicsMagick
@@ -28,6 +26,13 @@ AutoReqProv: no
 The ultimate Free Open Source Solution for team communications.
 
 %changelog
+* Tue Jan 15 2019 John Crisp <jcrisp@safeandsoundit.co.uk> 0.2-6.sme
+- remove required for mongo 2.6 and 3.0upg
+
+* Tue Jan 15 2019 John Crisp <jcrisp@safeandsoundit.co.uk> 0.2-5.sme
+- Delete erroneous docker config files
+- Add createlink expand docker-compose.yml
+
 * Tue Jan 15 2019 John Crisp <jcrisp@safeandsoundit.co.uk> 0.2-4.sme
 - create /var/opt/data/db as standard db location
 - set mongodb30upg and mongodb32 conf to use standard DB dir
