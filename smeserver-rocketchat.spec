@@ -126,7 +126,7 @@ rm -rf %{name}-%{version}
 
 if [[ -d /var/opt/data/db ]];
 then mkdir -p /var/opt/data/db;
-fir
+fi
 
 # if exists remove the following
 if [[ -f /etc/e-smith/templates/etc/profile.d/scls-nodejs010.sh ]];
