@@ -16,7 +16,9 @@ Requires: e-smith-release >= 9.2
 Requires: rh-python34-python
 Requires: rh-mongodb32-mongodb-server
 Requires: rh-mongodb32-mongodb
-requires: rh-mongodb32-mongo-tools
+Requires: rh-mongodb32-mongo-tools
+Requires: rh-mongodb34-mongodb
+Requires: rh-mongodb34-mongo-tools
 #Requires: nodejs >= 4.8
 #Requires: GraphicsMagick
 Requires: mod_proxy_wstunnel >= 0.1
@@ -28,6 +30,9 @@ AutoReqProv: no
 The ultimate Free Open Source Solution for team communications.
 
 %changelog
+* Mon Apr 29 2019 John Crisp <jcrisp@safeandsoundit.co.uk> 0.2-9.sme
+- Add Mongo 34 support
+
 * Tue Jan 15 2019 John Crisp <jcrisp@safeandsoundit.co.uk> 0.2-8.sme
 - Add replica set in mongod.conf - needs rs.initialise in mongo
 

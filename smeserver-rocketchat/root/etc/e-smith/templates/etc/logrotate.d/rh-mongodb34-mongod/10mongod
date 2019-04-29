@@ -1,4 +1,4 @@
-/var/opt/rh/rh-mongodb32/log/mongodb/*.log {
+/var/opt/rh/rh-mongodb34/log/mongodb/*.log {
        weekly
        rotate 10
        copytruncate
@@ -16,7 +16,7 @@
 #      /bin/kill -USR1 `cat /var/opt/rh/rh-mongodb26/run/mongodb/mongod.pid 2>/dev/null` 2> /dev/null|| true
 
 # New line
-       /bin/kill -USR1 `cat /var/opt/rh/rh-mongodb32/run/mongodb/mongod.pid 2>/dev/null` 2> /dev/null|| true
+       /bin/kill -USR1 `cat /var/opt/rh/rh-mongodb34/run/mongodb/mongod.pid 2>/dev/null` 2> /dev/null|| true
 
         rm /var/opt/rh/rh-mongodb32/log/mongodb/mongod.log.????-??-??T??-??-??
        endscript

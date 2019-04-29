@@ -1,0 +1,30 @@
+{
+    use strict;
+    use warnings;
+    use esmith::ConfigDB;
+
+    # Need to figure if webapps are installed
+    # if exists /etc/e-smith/events/webapps-update it's installed
+    # If so the root_URL needs to be set to localhost
+
+    my $configDB = esmith::ConfigDB->open_ro or die("can't open Config DB");
+
+    my $rocketchatStatus = $configDB->get_prop( 'rocketchat', 'status' ) || 'disabled';
+
+    # We technically should enable/disable on the basis of rh-mongodb26-mongod
+    # So we could use this key and change the if line following
+    my $rhmongodb34 = $configDB->get_prop( 'rh-mongodb34-mongod', 'status' ) || 'disabled';
+
+    if ( $rhmongodb34 ne 'disabled' ) {
+
+        $OUT .= <<'_EOF';
+#!/bin/sh
+source /opt/rh/rh-mongodb34/enable
+export X_SCLS="`scl enable rh-mongodb34 'echo $X_SCLS'`"
+_EOF
+    }
+
+    else {
+        $OUT .= "# Mongo34 disabled\n";
+    }
+}

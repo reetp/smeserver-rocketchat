@@ -1,0 +1,7 @@
+cp -R smeserver-rocketchat smeserver-rocketchat-0.2
+tar -czvf smeserver-rocketchat-0.2.tar.gz smeserver-rocketchat-0.2
+cp -rf *.tar.gz ~/rpmbuild/SOURCES
+cp -rf *.spec ~/rpmbuild/SPECS
+rpmbuild -bs ~/rpmbuild/SPECS/smeserver-rocketchat.spec
+mock -r /etc/mock/smeserver-9-x86_64-base.cfg rebuild ~/rpmbuild/SRPMS/smeserver-rocketchat-0.2-1.src.rpm
+sudo ~/scripts/copytorepo.sh

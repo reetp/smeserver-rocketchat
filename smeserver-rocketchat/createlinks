@@ -11,11 +11,13 @@ foreach (qw(
        /etc/profile.d/scls-rh-mongodb26.sh
        /etc/profile.d/scls-rh-mongodb30upg.sh
        /etc/profile.d/scls-rh-mongodb32.sh
+       /etc/profile.d/scls-rh-mongodb34.sh
        /etc/profile.d/scls-rh-python34.sh
        /etc/profile.d/scls-rh-java-common.sh
        /etc/opt/rh/rh-mongodb26/mongod.conf
        /etc/opt/rh/rh-mongodb30upg/mongod.conf
        /etc/opt/rh/rh-mongodb32/mongod.conf
+       /etc/opt/rh/rh-mongodb34/mongod.conf
        /home/e-smith/files/docker/configs/docker-compose.yml
        ))
 
@@ -32,7 +34,7 @@ foreach (qw(
 service_link_enhanced("rh-mongodb26-mongod", "S51", "7");
 service_link_enhanced("rh-mongodb30upg-mongod", "S51", "7");
 service_link_enhanced("rh-mongodb32-mongod", "S51", "7");
-
+service_link_enhanced("rh-mongodb34-mongod", "S51", "7");
 
 ## Runlevel init links.
 #service_link_enhanced("rocketchat", "S99", "7");
